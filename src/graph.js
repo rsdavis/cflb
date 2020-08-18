@@ -15,6 +15,9 @@ class Graph {
 
         this.users = []
 
+        this.xaxisGroup = this.svg.append('g').attr('class','xaxis')
+        this.yaxisGroup = this.svg.append('g').attr('class','yaxis')
+
     }
 
     resize ({ width, height }) {
@@ -38,6 +41,22 @@ class Graph {
 
         const tscale = d3.scaleTime().domain([ this.tmin, this.tmax ]).range([ 0, this.width ])
         const yscale = d3.scaleLinear().domain([ ymin, ymax ]).range([ this.height, 0 ])
+
+        const xaxis = d3.axisBottom(tscale).ticks(d3.timeYear.every(1)).tickSize(this.height)
+        const yaxis = d3.axisRight(yscale).tickSize(this.width)
+
+        this.xaxisGroup.call(xaxis)
+        this.yaxisGroup.call(yaxis)
+
+        // move y axis tick labels up
+        this.svg.selectAll('.xaxis .tick text').attr('y', this.height-15).attr('dx', 15)
+        this.svg.selectAll('.xaxis .tick line').attr('stroke-opacity', 0.5).attr('stroke-dasharray', '2,2')
+
+        this.svg.selectAll('.yaxis .tick text').attr('x', 10).attr('dy', -4)
+        this.svg.selectAll('.yaxis .tick line').attr('stroke-opacity', 0.5).attr('stroke-dasharray', '2,2')
+
+        // remove the axis line
+        this.svg.selectAll('.domain').remove()
 
         for (const user of this.users) {
 
