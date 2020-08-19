@@ -14,9 +14,14 @@ class Graph {
         this.tmax = new Date()
 
         this.users = []
+        this.paths = {}
 
         this.xaxisGroup = this.svg.append('g').attr('class','xaxis')
         this.yaxisGroup = this.svg.append('g').attr('class','yaxis')
+
+        this.svg.append('g').attr('id', 'paths')
+        this.svg.append('g').attr('id', 'halos')
+        this.svg.append('g').attr('id', 'nodes')
 
     }
 
@@ -27,11 +32,16 @@ class Graph {
     }
 
     addUser (user) {
+
         const _user = user.map(d => {
             d['t'] = new Date(d.ratingUpdateTimeSeconds*1000)
             return d
         })
-        this.users.push(user)
+
+        this.users.push(_user)
+
+        this.svg.select('#paths').append('path').data([_user])
+
     }
 
     _draw () {
@@ -58,22 +68,39 @@ class Graph {
         // remove the axis line
         this.svg.selectAll('.domain').remove()
 
+        const line = d3.line().x(d => tscale(d.t)).y(d => yscale(d.newRating))
+
         for (const user of this.users) {
 
-            const points = this.svg.selectAll('circle').data(user)
+            const halos = this.svg.select('#halos').selectAll('circle').data(user)
+            const nodes = this.svg.select('#nodes').selectAll('circle').data(user)
 
-            points.enter()
+            nodes.enter()
                 .append('circle')
                 .attr('cx', d => tscale(d.t))
                 .attr('cy', d => yscale(d.newRating))
                 .attr('r', 3)
-                .attr('fill', d3.rgb(245, 225, 174))
+                .attr('fill', d3.rgb(245, 245, 174))
 
-            points
+            nodes
                 .attr('cx', d => tscale(d.t))
                 .attr('cy', d => yscale(d.newRating))
 
+            halos.enter()
+                .append('circle')
+                .attr('cx', d => tscale(d.t))
+                .attr('cy', d => yscale(d.newRating))
+                .attr('r', 8)
+                .attr('fill', d3.rgb(45,45,45))
+
+            halos
+                .attr('cx', d => tscale(d.t))
+                .attr('cy', d => yscale(d.newRating))
+
+
         }
+
+        this.svg.select('#paths').selectAll('path').attr('fill', 'none').attr('stroke', d3.rgb(245,225,174)).attr('stroke-width', 1).attr('d', line)
 
     }
 

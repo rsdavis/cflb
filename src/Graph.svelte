@@ -7,10 +7,12 @@
     import Graph from './graph.js'
     import user from './user.json'
 
+    import axios from 'axios'
+
     let ref = null
     let graph = null
 
-    
+    axios.get('https://codeforces.com/api/user.rating?handle=natsugiri').then(console.log)
 
     function init (node) {
 
