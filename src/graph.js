@@ -39,6 +39,7 @@ class Graph {
         this.svg.call(this.zoom)
 
         this.items = []
+        this.handles = []
 
     }
 
@@ -47,7 +48,8 @@ class Graph {
         this.transform = d3.event.transform
         this.drawAxes()
         this.drawPoints()
-        
+        this.drawPaths()
+
     }
 
     drawAxes () {
@@ -91,6 +93,42 @@ class Graph {
 
         nodes.exit().remove()
 
+        const halos = this.svg.select('#halos').selectAll('circle').data(this.items, d => d.id)
+
+        halos.enter()
+            .append('circle')
+            .attr('cx', d => this.xt(d.t))
+            .attr('cy', d => this.yt(d.newRating))
+            .attr('r', 8)
+            .attr('fill', d3.rgb(45,45,45))
+
+        halos
+            .attr('cx', d => this.xt(d.t))
+            .attr('cy', d => this.yt(d.newRating))
+
+        halos.exit().remove()
+
+    }
+
+    drawPaths () {
+
+        const line = d3.line().x(d => this.xt(d.t)).y(d => this.yt(d.newRating))
+        const paths = this.svg.select('#paths').selectAll('path').data(this.handles, h => h)
+
+        paths.enter()
+            .append('path')
+            .datum(h => this.items.filter(item => item.handle === h))
+            .attr('fill', 'none')
+            .attr('stroke', d3.rgb(245,255,174))
+            .attr('stroke-width', 1)
+            .attr('d', line)
+
+        paths
+            .attr('d', line)
+
+
+        paths.exit().remove()
+
     }
 
     _draw (handles, items, width, height) {
@@ -101,46 +139,11 @@ class Graph {
         this.height = height
 
         this.items = items
+        this.handles = handles
 
         this.drawAxes()
         this.drawPoints()
-
-        // // NODES
-
-
-        // // HALOS
-
-        // const halos = this.svg.select('#halos').selectAll('circle').data(items, d => d.id)
-
-        // halos.enter()
-        //     .append('circle')
-        //     .attr('cx', d => this.tscale(d.t))
-        //     .attr('cy', d => this.yscale(d.newRating))
-        //     .attr('r', 8)
-        //     .attr('fill', d3.rgb(45,45,45))
-
-        // halos
-        //     .attr('cx', d => this.tscale(d.t))
-        //     .attr('cy', d => this.yscale(d.newRating))
-
-        // halos.exit().remove()
-
-        // // PATHS
-
-        // const line = d3.line().x(d => this.tscale(d.t)).y(d => this.yscale(d.newRating))
-        // const paths = this.svg.select('#paths').selectAll('path').data(handles, h => h)
-
-        // paths.enter()
-        //     .append('path')
-        //     .datum(h => items.filter(item => item.handle === h))
-        //     .attr('fill', 'none')
-        //     .attr('stroke', d3.rgb(245,255,174))
-        //     .attr('stroke-width', 1)
-        //     .attr('d', line)
-
-        // paths.exit().remove()
-
-
+        this.drawPaths()
 
     }
 
