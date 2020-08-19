@@ -7,12 +7,14 @@
     import Graph from './graph.js'
     import user from './user.json'
 
-    import axios from 'axios'
+    import derived from './derived.js'
 
     let ref = null
     let graph = null
+    let width = 0
+    let height = 0
 
-    axios.get('https://codeforces.com/api/user.rating?handle=natsugiri').then(console.log)
+    $: graph && graph._draw($derived.handles, $derived.items, width, height)
 
     function init (node) {
 
@@ -23,10 +25,11 @@
             const observer = new ResizeObserver(entries => {
 
                 for (const entry of entries) {
-                    const width = entry.borderBoxSize[0].inlineSize
-                    const height = entry.borderBoxSize[0].blockSize
-                    graph.resize({ width, height })
+                    width = entry.borderBoxSize[0].inlineSize
+                    height = entry.borderBoxSize[0].blockSize
                 }
+
+                if (graph) graph._draw($derived.handles, $derived.items, width, height)
 
             })
 
@@ -36,12 +39,10 @@
         else {
 
             console.warn('ResizeObserver not available')
-            const { width, height } = node.getBoundingClientRect()
-            graph.resize({ width, height })
+            const r = node.getBoundingClientRect()
+            if (graph) graph._draw($derived.handles, $derived.items, r.width, r.height)
 
         }
-
-        graph.addUser(user)
 
     }
 
