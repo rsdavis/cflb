@@ -7,18 +7,89 @@ class Graph {
 
         this.svg = d3.select('#' + elementId)
 
-        this.tmin = d3.timeYear.offset(new Date(), -3)
-        this.tmax = new Date()
+        const tmin = d3.timeYear.offset(new Date(), -3)
+        const tmax = new Date()
+
+        const ymin = 0
+        const ymax = 4000
+
+        this.x = d3.scaleTime().domain([ tmin, tmax ])
+        this.y = d3.scaleLinear().domain([ ymin, ymax ])
+
+        this.transform = d3.zoomIdentity
+
+        this.xt = this.transform.rescaleX(this.x).interpolate(d3.interpolateRound)
+        this.yt = this.transform.rescaleY(this.y).interpolate(d3.interpolateRound)
+
+        this.xf = d3.axisBottom(this.xt)
+        this.yf = d3.axisRight(this.yt)
+
+        this.xg = this.svg.append('g').attr('id', 'xg').call(this.xf)
+        this.yg = this.svg.append('g').attr('id', 'yg').call(this.yf)
 
         this.users = []
         this.paths = {}
 
-        this.xaxisGroup = this.svg.append('g').attr('class','xaxis')
-        this.yaxisGroup = this.svg.append('g').attr('class','yaxis')
-
         this.svg.append('g').attr('id', 'paths')
         this.svg.append('g').attr('id', 'halos')
         this.svg.append('g').attr('id', 'nodes')
+
+        this.zoom = d3.zoom().scaleExtent([0.5, 10]).on('zoom', this.zoomed.bind(this))
+
+        this.svg.call(this.zoom)
+
+        this.items = []
+
+    }
+
+    zoomed() {
+
+        this.transform = d3.event.transform
+        this.drawAxes()
+        this.drawPoints()
+        
+    }
+
+    drawAxes () {
+
+        this.x.range([ 0, this.width ])
+        this.y.range([ this.height, 0 ])
+
+        this.xt = this.transform.rescaleX(this.x).interpolate(d3.interpolateRound)
+        this.yt = this.transform.rescaleY(this.y).interpolate(d3.interpolateRound)
+
+        this.xf.scale(this.xt).tickSize(this.height)
+        this.yf.scale(this.yt).tickSize(this.width)
+
+        this.xg.call(this.xf)
+        this.yg.call(this.yf)
+
+        this.svg.selectAll('#xg .tick text').attr('y', 15).attr('dx', 20)
+        this.svg.selectAll('#xg .tick line').attr('stroke-opacity', 0.5).attr('stroke-dasharray', '2,2')
+
+        this.svg.selectAll('#yg .tick text').attr('x', 10).attr('dy', -4)
+        this.svg.selectAll('#yg .tick line').attr('stroke-opacity', 0.5).attr('stroke-dasharray', '2,2')
+
+        this.svg.selectAll('.domain').remove()
+
+    }
+
+    drawPoints () {
+
+        const nodes = this.svg.select('#nodes').selectAll('circle').data(this.items, d => d.id)
+
+        nodes.enter()
+            .append('circle')
+            .attr('cx', d => this.xt(d.t))
+            .attr('cy', d => this.yt(d.newRating))
+            .attr('r', 3)
+            .attr('fill', d3.rgb(245, 245, 174))
+
+        nodes
+            .attr('cx', d => this.xt(d.t))
+            .attr('cy', d => this.yt(d.newRating))
+
+        nodes.exit().remove()
 
     }
 
@@ -26,78 +97,50 @@ class Graph {
 
         console.log('draw', items.length)
 
-        const ymin = 0
-        const ymax = 4000
+        this.width = width
+        this.height = height
 
-        const tscale = d3.scaleTime().domain([ this.tmin, this.tmax ]).range([ 0, width ])
-        const yscale = d3.scaleLinear().domain([ ymin, ymax ]).range([ height, 0 ])
+        this.items = items
 
-        const xaxis = d3.axisBottom(tscale).ticks(d3.timeYear.every(1)).tickSize(height)
-        const yaxis = d3.axisRight(yscale).tickSize(width)
+        this.drawAxes()
+        this.drawPoints()
 
-        this.xaxisGroup.call(xaxis)
-        this.yaxisGroup.call(yaxis)
+        // // NODES
 
-        // move y axis tick labels up
-        this.svg.selectAll('.xaxis .tick text').attr('y', height-15).attr('dx', 15)
-        this.svg.selectAll('.xaxis .tick line').attr('stroke-opacity', 0.5).attr('stroke-dasharray', '2,2')
 
-        this.svg.selectAll('.yaxis .tick text').attr('x', 10).attr('dy', -4)
-        this.svg.selectAll('.yaxis .tick line').attr('stroke-opacity', 0.5).attr('stroke-dasharray', '2,2')
+        // // HALOS
 
-        // remove the axis line
-        this.svg.selectAll('.domain').remove()
+        // const halos = this.svg.select('#halos').selectAll('circle').data(items, d => d.id)
 
-        // NODES
+        // halos.enter()
+        //     .append('circle')
+        //     .attr('cx', d => this.tscale(d.t))
+        //     .attr('cy', d => this.yscale(d.newRating))
+        //     .attr('r', 8)
+        //     .attr('fill', d3.rgb(45,45,45))
 
-        const nodes = this.svg.select('#nodes').selectAll('circle').data(items, d => d.id)
+        // halos
+        //     .attr('cx', d => this.tscale(d.t))
+        //     .attr('cy', d => this.yscale(d.newRating))
 
-        nodes.enter()
-            .append('circle')
-            .attr('cx', d => tscale(d.t))
-            .attr('cy', d => yscale(d.newRating))
-            .attr('r', 3)
-            .attr('fill', d3.rgb(245, 245, 174))
+        // halos.exit().remove()
 
-        nodes
-            .attr('cx', d => tscale(d.t))
-            .attr('cy', d => yscale(d.newRating))
+        // // PATHS
 
-        nodes.exit().remove()
+        // const line = d3.line().x(d => this.tscale(d.t)).y(d => this.yscale(d.newRating))
+        // const paths = this.svg.select('#paths').selectAll('path').data(handles, h => h)
 
-        // HALOS
+        // paths.enter()
+        //     .append('path')
+        //     .datum(h => items.filter(item => item.handle === h))
+        //     .attr('fill', 'none')
+        //     .attr('stroke', d3.rgb(245,255,174))
+        //     .attr('stroke-width', 1)
+        //     .attr('d', line)
 
-        const halos = this.svg.select('#halos').selectAll('circle').data(items, d => d.id)
+        // paths.exit().remove()
 
-        halos.enter()
-            .append('circle')
-            .attr('cx', d => tscale(d.t))
-            .attr('cy', d => yscale(d.newRating))
-            .attr('r', 8)
-            .attr('fill', d3.rgb(45,45,45))
 
-        halos
-            .attr('cx', d => tscale(d.t))
-            .attr('cy', d => yscale(d.newRating))
-
-        halos.exit().remove()
-
-        // PATHS
-
-        const line = d3.line().x(d => tscale(d.t)).y(d => yscale(d.newRating))
-        const paths = this.svg.select('#paths').selectAll('path').data(handles, h => h)
-
-        paths.enter()
-            .append('path')
-            .datum(h => items.filter(item => item.handle === h))
-            .attr('fill', 'none')
-            .attr('stroke', d3.rgb(245,255,174))
-            .attr('stroke-width', 1)
-            .attr('d', line)
-
-        paths.exit().remove()
-
-        // this.svg.select('#paths').selectAll('path').attr('fill', 'none').attr('stroke', d3.rgb(245,225,174)).attr('stroke-width', 1).attr('d', line)
 
     }
 
