@@ -48,9 +48,8 @@ class Graph {
         // remove the axis line
         this.svg.selectAll('.domain').remove()
 
-        const line = d3.line().x(d => tscale(d.t)).y(d => yscale(d.newRating))
+        // NODES
 
-        const halos = this.svg.select('#halos').selectAll('circle').data(items, d => d.id)
         const nodes = this.svg.select('#nodes').selectAll('circle').data(items, d => d.id)
 
         nodes.enter()
@@ -66,6 +65,10 @@ class Graph {
 
         nodes.exit().remove()
 
+        // HALOS
+
+        const halos = this.svg.select('#halos').selectAll('circle').data(items, d => d.id)
+
         halos.enter()
             .append('circle')
             .attr('cx', d => tscale(d.t))
@@ -78,6 +81,21 @@ class Graph {
             .attr('cy', d => yscale(d.newRating))
 
         halos.exit().remove()
+
+        // PATHS
+
+        const line = d3.line().x(d => tscale(d.t)).y(d => yscale(d.newRating))
+        const paths = this.svg.select('#paths').selectAll('path').data(handles, h => h)
+
+        paths.enter()
+            .append('path')
+            .datum(h => items.filter(item => item.handle === h))
+            .attr('fill', 'none')
+            .attr('stroke', d3.rgb(245,255,174))
+            .attr('stroke-width', 1)
+            .attr('d', line)
+
+        paths.exit().remove()
 
         // this.svg.select('#paths').selectAll('path').attr('fill', 'none').attr('stroke', d3.rgb(245,225,174)).attr('stroke-width', 1).attr('d', line)
 
