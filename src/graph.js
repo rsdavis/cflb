@@ -37,7 +37,7 @@ class Graph {
         this.zoom = d3.zoom().scaleExtent([0.5, 10]).on('zoom', this.zoomed.bind(this))
 
         this.svg.call(this.zoom)
-        this.svg.on('mousemove', this.mousemove.bind(this))
+        this.svg.on('mousemove', this.mouseMove.bind(this))
 
         this.items = []
         this.handles = []
@@ -53,31 +53,36 @@ class Graph {
             .attr('fill', 'none')
             .attr('opacity', 0)
 
+        this.mouse = [0,0]
     }
 
     drawFocus () {
+
+        const [ x, y ] = this.mouse
+        const xx = this.xt.invert(x)
+        const yy = this.yt.invert(y)
+        this.closest = this.quadtree.find(xx, yy)
+
 
         if (this.closest) {
             const cx = this.xt(this.closest.t)
             const cy = this.yt(this.closest.newRating)
             this.focus.attr('cx', cx).attr('cy', cy).attr('opacity', 1)
         }
+        else {
+            this.focus.attr('opacity', 0)
+        }
 
     }
 
-    mousemove() {
-
-        const [ x, y ] = d3.mouse(this.svg.node())
-        const xx = this.xt.invert(x)
-        const yy = this.yt.invert(y)
-        this.closest = this.quadtree.find(xx, yy)
-
+    mouseMove () {
+        this.mouse = d3.mouse(this.svg.node())
         this.drawFocus()
-
     }
 
     zoomed() {
 
+        this.mouse = d3.mouse(this.svg.node())
         this.transform = d3.event.transform
         this.drawAxes()
         this.drawPoints()
@@ -175,11 +180,13 @@ class Graph {
         this.items = items
         this.handles = handles
 
+        this.quadtree = d3.quadtree().x(d => d.t).y(d => d.newRating).addAll(this.items)
+
         this.drawAxes()
         this.drawPoints()
         this.drawPaths()
+        this.drawFocus()
 
-        this.quadtree = d3.quadtree().x(d => d.t).y(d => d.newRating).addAll(this.items)
 
     }
 
