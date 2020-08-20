@@ -6,7 +6,7 @@ const raw = fs.readFileSync('data.json')
 const data = JSON.parse(raw)
 
 
-const top100 = data.filter((d, i) => i < 100).map(({ rating, handle, avatar, rank }) => ({ rating, handle, avatar, rank }))
+const top100 = data.filter((d, i) => i < 100)
 const userHandles = data.map(user => user.handle)
 
 fs.writeFileSync('top100.json', JSON.stringify(top100, null, 4))

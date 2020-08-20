@@ -3,6 +3,7 @@
 
     import ThreePane from './ThreePane.svelte'
     import UserList from './UserList.svelte'
+    import UserInfo from './UserInfo.svelte'
     import Graph from './Graph.svelte'
 
 </script>
@@ -14,7 +15,7 @@
     </section>
 
     <section slot="b">
-        Pane B
+        <UserInfo/>
     </section>
 
     <section slot="c">
