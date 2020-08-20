@@ -34,7 +34,10 @@ class Graph {
         this.svg.append('g').attr('id', 'halos')
         this.svg.append('g').attr('id', 'nodes')
 
-        this.zoom = d3.zoom().scaleExtent([0.5, 10]).on('zoom', this.zoomed.bind(this))
+        this.zoom = d3.zoom()
+            .scaleExtent([0.5, 10])
+            .on('zoom', this.zoomed.bind(this))
+            .on('end', this.zoomEnd.bind(this))
 
         this.svg.call(this.zoom)
         this.svg.on('mousemove', this.mouseMove.bind(this))
@@ -58,11 +61,8 @@ class Graph {
 
     drawFocus () {
 
-        const [ x, y ] = this.mouse
-        const xx = this.xt.invert(x)
-        const yy = this.yt.invert(y)
-        this.closest = this.quadtree.find(xx, yy)
-
+        //const [ x, y ] = this.mouse
+        //this.closest = this.quadtree.find(x, y)
 
         if (this.closest) {
             const cx = this.xt(this.closest.t)
@@ -76,17 +76,37 @@ class Graph {
     }
 
     mouseMove () {
+
+        console.log('mousemove')
+
         this.mouse = d3.mouse(this.svg.node())
+        const [ x, y ] = this.mouse
+        this.closest = this.quadtree.find(x, y)
         this.drawFocus()
+
     }
 
     zoomed() {
 
-        this.mouse = d3.mouse(this.svg.node())
+        console.log('zoom')
+        //this.mouse = d3.mouse(this.svg.node())
         this.transform = d3.event.transform
         this.drawAxes()
         this.drawPoints()
         this.drawPaths()
+        this.drawFocus()
+
+    }
+
+    zoomEnd () {
+
+        console.log('zoomEnd')
+
+        this.quadtree = d3.quadtree()
+            .x(d => this.xt(d.t))
+            .y(d => this.yt(d.newRating))
+            .addAll(this.items)
+
         this.drawFocus()
 
     }
@@ -180,7 +200,10 @@ class Graph {
         this.items = items
         this.handles = handles
 
-        this.quadtree = d3.quadtree().x(d => d.t).y(d => d.newRating).addAll(this.items)
+        this.quadtree = d3.quadtree()
+            .x(d => this.xt(d.t))
+            .y(d => this.yt(d.newRating))
+            .addAll(this.items)
 
         this.drawAxes()
         this.drawPoints()
