@@ -37,9 +37,42 @@ class Graph {
         this.zoom = d3.zoom().scaleExtent([0.5, 10]).on('zoom', this.zoomed.bind(this))
 
         this.svg.call(this.zoom)
+        this.svg.on('mousemove', this.mousemove.bind(this))
 
         this.items = []
         this.handles = []
+
+        this.closes = undefined
+        this.quadtree = d3.quadtree()
+
+        this.focus = this.svg.append('circle')
+            .attr('id', 'focus')
+            .attr('r', 5)
+            .attr('stroke', 'white')
+            .attr('stroke-width', 2)
+            .attr('fill', 'none')
+            .attr('opacity', 0)
+
+    }
+
+    drawFocus () {
+
+        if (this.closest) {
+            const cx = this.xt(this.closest.t)
+            const cy = this.yt(this.closest.newRating)
+            this.focus.attr('cx', cx).attr('cy', cy).attr('opacity', 1)
+        }
+
+    }
+
+    mousemove() {
+
+        const [ x, y ] = d3.mouse(this.svg.node())
+        const xx = this.xt.invert(x)
+        const yy = this.yt.invert(y)
+        this.closest = this.quadtree.find(xx, yy)
+
+        this.drawFocus()
 
     }
 
@@ -49,6 +82,7 @@ class Graph {
         this.drawAxes()
         this.drawPoints()
         this.drawPaths()
+        this.drawFocus()
 
     }
 
@@ -66,7 +100,7 @@ class Graph {
         this.xg.call(this.xf)
         this.yg.call(this.yf)
 
-        this.svg.selectAll('#xg .tick text').attr('y', 15).attr('dx', 20)
+        this.svg.selectAll('#xg .tick text').attr('y', this.height - 15).attr('dx', 20)
         this.svg.selectAll('#xg .tick line').attr('stroke-opacity', 0.5).attr('stroke-dasharray', '2,2')
 
         this.svg.selectAll('#yg .tick text').attr('x', 10).attr('dy', -4)
@@ -144,6 +178,8 @@ class Graph {
         this.drawAxes()
         this.drawPoints()
         this.drawPaths()
+
+        this.quadtree = d3.quadtree().x(d => d.t).y(d => d.newRating).addAll(this.items)
 
     }
 
