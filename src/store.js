@@ -60,4 +60,43 @@ function deselectUser (user) {
 
 }
 
-export default { subscribe, selectUser, deselectUser }
+
+function addSelectedContest (handle, contest) {
+
+    console.log(contest)
+
+    update(store => {
+
+        if (store.selectedUsers.has(handle)) {
+            const user = store.selectedUsers.get(handle)
+            store.selectedUsers.set(handle, Object.assign(user, { selectedContest: contest }))
+            console.log('set', handle)
+        }
+
+        return store
+
+    })
+
+}
+
+function selectContest (contestId, handle) {
+
+    update(store => {
+
+        if (store.selectedUsers.has(handle)) {
+
+            const url = `https://codeforces.com/api/contest.standings?handles=${handle}&contestId=${contestId}`
+
+            axios.get(url)
+                .then(res => addSelectedContest(handle, res.data.result))
+                .catch(err => console.error(err))
+
+        }
+
+        return store
+
+    })
+
+}
+
+export default { subscribe, selectUser, deselectUser, selectContest }

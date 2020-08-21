@@ -22,7 +22,8 @@
             country: v.country,
             city: v.city,
             avatar: v.avatar,
-            contribution: v.contribution
+            contribution: v.contribution,
+            selectedContest: v.selectedContest
         }
 
     })
@@ -47,6 +48,27 @@
                 <Icon icon={faStar}/>
                 <span>{ user.contribution } Contribution</span>
             </div>
+
+            { #if user.selectedContest }
+
+                <div>
+                    { user.selectedContest.contest.name }
+                </div>
+
+                <div class='problem-results'>
+
+                    { #each user.selectedContest.problems as problem, i }
+                        <span>{ problem.index }</span>
+                        <span>{ problem.name }</span>
+                        <span>{ user.selectedContest.rows[0].problemResults[i].rejectedAttemptCount }</span>
+                        <span>{ user.selectedContest.rows[0].problemResults[i].points }</span>
+                        <span>/{ problem.points }</span>
+                    { /each }
+
+                </div>
+
+            {/if}
+
         </li>
     { /each }
 
@@ -70,6 +92,11 @@
     .stats {
         display: grid;
         grid-template-columns: 1fr 5fr;
+    }
+
+    .problem-results {
+        display: grid;
+        grid-template-columns: 25px 1fr 50px 25px 25px;
     }
 
 </style>

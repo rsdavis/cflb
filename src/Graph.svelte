@@ -7,6 +7,7 @@
     import Graph from './graph.js'
     import user from './user.json'
 
+    import store from './store.js'
     import derived from './derived.js'
 
     let ref = null
@@ -18,7 +19,7 @@
 
     function init (node) {
 
-        graph = new Graph('graph')
+        graph = new Graph('graph', store.selectContest)
 
         if ('ResizeObserver' in window) {
 

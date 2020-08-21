@@ -3,9 +3,10 @@ import * as d3 from 'd3'
 
 class Graph {
 
-    constructor (elementId) {
+    constructor (elementId, onSelectContest) {
 
         this.svg = d3.select('#' + elementId)
+        this.onSelectContest = onSelectContest
 
         const tmin = d3.timeYear.offset(new Date(), -3)
         const tmax = new Date()
@@ -40,7 +41,10 @@ class Graph {
             .on('end', this.zoomEnd.bind(this))
 
         this.svg.call(this.zoom)
-        this.svg.on('mousemove', this.mouseMove.bind(this))
+
+        this.svg
+            .on('mousemove', this.mouseMove.bind(this))
+            .on('click', this.handleClick.bind(this))
 
         this.items = []
         this.handles = []
@@ -57,12 +61,10 @@ class Graph {
             .attr('opacity', 0)
 
         this.mouse = [0,0]
+
     }
 
     drawFocus () {
-
-        //const [ x, y ] = this.mouse
-        //this.closest = this.quadtree.find(x, y)
 
         if (this.closest) {
             const cx = this.xt(this.closest.t)
@@ -89,7 +91,6 @@ class Graph {
     zoomed() {
 
         console.log('zoom')
-        //this.mouse = d3.mouse(this.svg.node())
         this.transform = d3.event.transform
         this.drawAxes()
         this.drawPoints()
@@ -107,7 +108,20 @@ class Graph {
             .y(d => this.yt(d.newRating))
             .addAll(this.items)
 
+        this.mouse = d3.mouse(this.svg.node())
+        const [ x, y ] = this.mouse
+        this.closest = this.quadtree.find(x, y)
+
         this.drawFocus()
+
+    }
+
+    handleClick () {
+
+        console.log('click')
+        if (this.closest && this.onSelectContest) {
+            this.onSelectContest(this.closest.contestId, this.closest.handle)
+        }
 
     }
 
