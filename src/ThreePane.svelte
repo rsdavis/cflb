@@ -69,16 +69,22 @@
     }
 
     .pane {
-        position: relative;
         height: 100%;
         color: white;
-        width: 100%;
-        min-width: 300px;
+     }
+
+    .pane:first-child {
         width: 300px;
+    }
+
+    .middle {
+        min-width: 400px;
+        max-width: 400px;
     }
 
     .pane:last-child {
         width: 100%;
+        min-width: 300px;
     }
 
     .divider {
