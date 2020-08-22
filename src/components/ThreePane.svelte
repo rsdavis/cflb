@@ -1,19 +1,7 @@
 
 <script>
 
-    import { onMount } from 'svelte'
-
-    import Divider from './Divider.svelte'
-
-    let leftOpen
-    let rightOpen
-    let innerWidth
-    let mpanes = 1
     let panes = [true, true, true]
-
-    onMount(() => {
-
-    })
 
     function handleDivider (divider) {
 

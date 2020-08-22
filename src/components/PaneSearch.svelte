@@ -1,8 +1,8 @@
 
 <script>
 
-    import data from './top100.json'
-    import store from './store.js'
+    import data from '../data/top100.json'
+    import store from '../store/store.js'
 
     function handleSelect (user) {
 

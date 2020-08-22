@@ -1,14 +1,10 @@
 
 <script>
 
-    import { onMount } from 'svelte'
-    import * as d3 from 'd3'
-
     import Graph from './graph.js'
-    import user from './user.json'
 
-    import store from './store.js'
-    import derived from './derived.js'
+    import store from '../store/store.js'
+    import derived from '../store/derived.js'
 
     let ref = null
     let graph = null

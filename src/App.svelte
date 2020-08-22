@@ -1,25 +1,25 @@
 
 <script>
 
-    import ThreePane from './ThreePane.svelte'
-    import UserList from './UserList.svelte'
-    import UserInfo from './UserInfo.svelte'
-    import Graph from './Graph.svelte'
+    import ThreePane from './components/ThreePane.svelte'
+    import PaneSearch from './components/PaneSearch.svelte'
+    import PaneUsers from './components/PaneUsers.svelte'
+    import PaneGraph from './components/PaneGraph.svelte'
 
 </script>
 
 <ThreePane>
 
     <section slot="a">
-        <UserList/>
+        <PaneSearch/>
     </section>
 
     <section slot="b">
-        <UserInfo/>
+        <PaneUsers/>
     </section>
 
     <section slot="c">
-        <Graph/>
+        <PaneGraph/>
     </section>
 
 </ThreePane>
