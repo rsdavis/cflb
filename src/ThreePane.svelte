@@ -38,8 +38,7 @@
         </div>
     { /if }
 
-    <div class="divider" on:click={() => handleDivider(0)} >
-    </div>
+    <div class="divider" on:click={() => handleDivider(0)} />
 
     { #if panes[1] }
         <div class="pane middle">
@@ -47,8 +46,7 @@
         </div>
     { /if }
 
-    <div class="divider" on:click={() => handleDivider(1)} >
-    </div>
+    <div class="divider" on:click={() => handleDivider(1)} />
 
     { #if panes[2] }
         <div class="pane">

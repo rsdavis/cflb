@@ -9,6 +9,7 @@
     import { faUser } from '@fortawesome/free-solid-svg-icons/faUser'
     import { faBug } from '@fortawesome/free-solid-svg-icons/faBug'
     import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
+    import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
 
     import store from './store.js'
 
@@ -37,14 +38,27 @@
     { #each users as user}
         <li>
 
-            <div class="handle">
-                {user.handle}
+            <div class="header">
+
+                <div class="info-avatar">
+                    <img src={user.avatar} alt="Avatar"/>
+                </div>
+
+                <div class="header-handle">
+                    {user.handle}
+                </div>
+
+                <button class="icon header-close">
+                    <Icon icon={faTimes}/>
+                </button>
+
             </div>
+
 
             <div class="info">
 
                 <div class='info-stats'>
-                    <span class='icon icon-blue stats-user-icon'><Icon icon={faUser}/></span>
+                    <div class='icon icon-blue stats-user-icon'><Icon icon={faUser}/></div>
                     <span class='stats-user-name'>{ user.firstName } { user.lastName }</span>
                     <span class='icon icon-blue stats-country-icon'><Icon icon={faGlobe}/></span>
                     <span class='stats-country-name'>{ user.country }</span>
@@ -54,9 +68,6 @@
                     <span class='stats-contribution-name'>{ user.contribution } Contribution</span>
                 </div>
 
-                <div class="info-avatar">
-                    <img src={user.avatar} alt="Avatar"/>
-                </div>
 
             </div>
 
@@ -72,29 +83,34 @@
 
                     { #each user.selectedContest.problems as problem, i }
 
-                        <span class='results-index'>{ problem.index }</span>
+                        <span class='results-index'>({ problem.index })</span>
 
                         <span class='results-name'>{ problem.name }</span>
 
+
                         { #if user.selectedContest.rows[0].problemResults[i].rejectedAttemptCount }
-                            <span class='results-bugs'>
-                                <span class='bug-icon'><Icon icon={faBug}/></span>
+                            <span class="icon results-bug-icon"><Icon icon={faBug}/></span>
+                            <span class="results-bug-count">
                                 { user.selectedContest.rows[0].problemResults[i].rejectedAttemptCount }
                             </span>
-                        { /if}
+                        { /if }
 
                         { #if user.selectedContest.rows[0].problemResults[i].points }
-                            <span class='results-check'>
+                            <span class='icon color-green results-check'>
                                 <Icon icon={faCheck}/>
                             </span>
                         { /if }
 
-                        <span class='results-points'>{ user.selectedContest.rows[0].problemResults[i].points }</span>
+                        <span class='results-points' class:color-green={user.selectedContest.rows[0].problemResults[i].points }>
+                            { user.selectedContest.rows[0].problemResults[i].points }
+                        </span>
+
+                        <span class='results-sep'>/</span>
 
                         { #if problem.points }
-                            <span class='results-total'>/ { problem.points }</span>
+                            <span class='results-total'>{ problem.points }</span>
                         { :else }
-                            <span class='results-total'>/ 1</span>
+                            <span class='results-total'>1</span>
                         { /if }
 
                     { /each }
@@ -115,13 +131,35 @@
         height: 100%;
     }
 
+    li {
+        padding: 0.5em;
+    }
+
     li + li {
         border-top: 1px solid #ccc;
         border-bottom: 1px solid #ccc;
     }
 
-    .handle {
-        padding: 1em 0;
+    .header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .header-close {
+        color: white;
+    }
+
+    .header-handle {
+        flex-grow: 1;
+    }
+
+    .info-avatar {
+    }
+
+    img {
+        border-radius: 50%;
+        width: 50px;
     }
 
     .info {
@@ -133,22 +171,13 @@
         grid-gap: 0.25em;
         grid-template-columns: auto 5fr;
         flex-grow: 2;
-    }
-
-    .info-avatar {
-        display: flex;
-        justify-content: center;
         align-items: center;
-        flex-grow: 1;
-    }
-
-    img {
-        border-radius: 50%;
+        font-size: 0.9rem;
     }
 
     .icon {
-        width: 100%;
-        height: 100%;
+        width: 1em;
+        height: 1em;
     }
 
     .icon-yellow {
@@ -160,14 +189,16 @@
     }
 
     .contest-name {
-        font-weight: 600;
+        color: rgb(245, 245, 174);
         padding: 0.5em 0;
+        font-size: 0.9rem;
     }
 
     .results {
         display: grid;
         grid-gap: 0.25em;
-        grid-template-columns: auto 1fr auto auto auto auto;
+        grid-template-columns: auto 1fr auto auto auto auto auto;
+        font-size: 0.9rem;
     }
 
     .results-index {
@@ -177,32 +208,43 @@
     .results-name {
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
         grid-column: 2;
     }
 
-    .results-bugs {
+    .results-bug-icon {
+        color: red;
         grid-column: 3;
     }
 
-    .results-check {
+    .results-bug-count {
+        color: red;
         grid-column: 4;
-        font-size: 14px;
+    }
+
+    .color-green {
         color: green;
+    }
+
+    .results-check {
+        grid-column: 5;
     }
 
     .results-points {
         text-align: right;
-        grid-column: 5;
+        grid-column: 6;
+    }
+
+    .results-sep {
+        grid-column: 7;
     }
 
     .results-total {
         text-align: right;
-        grid-column: 6;
+        grid-column: 8;
     }
 
-
     .bug-icon {
-        font-size: 14px;
         color: red;
     }
 
