@@ -16,6 +16,7 @@
             rank: v.rank,
             country: v.country,
             city: v.city,
+            rating: v.rating,
             avatar: v.avatar,
             contribution: v.contribution,
             selectedContest: v.selectedContest

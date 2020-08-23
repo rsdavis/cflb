@@ -26,10 +26,15 @@ button {
     cursor: pointer;
     padding: 0;
     margin: 0;
+    display: block;
 }
 
 svg {
     display: block;
     height: 100%;
     width: 100%;
+}
+
+img { 
+    display: block;
 }

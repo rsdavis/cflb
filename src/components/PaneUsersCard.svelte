@@ -9,8 +9,21 @@
     import { faBug } from '@fortawesome/free-solid-svg-icons/faBug'
     import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
     import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
+    import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown'
+    import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight'
+    import { faMedal } from '@fortawesome/free-solid-svg-icons/faMedal'
+    import { faAward } from '@fortawesome/free-solid-svg-icons/faAward'
+    import { faHashtag } from '@fortawesome/free-solid-svg-icons/faHashtag'
+
+    import store from '../store/store.js'
 
     export let user
+
+    let open = true
+
+    function toggle () {
+        open = !open
+    }
 
     function handleClose (user) {
         store.deselectUser(user)
@@ -20,7 +33,17 @@
 
 <div class="header">
 
-    <div class="info-avatar">
+    <button class='header-chevron' on:click={() => toggle()}>
+        <div class="icon">
+            { #if open }
+                <Icon icon={faChevronDown}/>
+            { :else }
+                <Icon icon={faChevronRight}/>
+            { /if }
+        </div>
+    </button>
+
+    <div class="header-avatar">
         <img src={user.avatar} alt="Avatar"/>
     </div>
 
@@ -28,73 +51,92 @@
         {user.handle}
     </div>
 
-    <button class="icon header-close" on:click={() => handleClose(user)}>
-        <Icon icon={faTimes}/>
+    <button class="header-close" on:click={() => handleClose(user)}>
+        <div class="icon">
+            <Icon icon={faTimes}/>
+        </div>
     </button>
 
 </div>
 
-<div class="info">
+{ #if open }
 
-    <div class='info-stats'>
+    <div class='info'>
         <div class='icon icon-blue stats-user-icon'><Icon icon={faUser}/></div>
         <span class='stats-user-name'>{ user.firstName } { user.lastName }</span>
         <span class='icon icon-blue stats-country-icon'><Icon icon={faGlobe}/></span>
         <span class='stats-country-name'>{ user.country }</span>
         <span class='icon icon-yellow stats-rank-icon'><Icon icon={faTrophy}/></span>
         <span class='stats-rank-name'>{ user.rank }</span>
-        <span class='icon icon-yellow stats-contribution-icon'><Icon icon={faStar}/></span>
-        <span class='stats-contribution-name'>{ user.contribution } Contribution</span>
     </div>
 
+    <ul class='stats'>
+        <li>
+            <div class="icon"><Icon icon={faAward}/></div>
+            <div>1</div>
+        </li>
+        <li>
+            <div class="icon"><Icon icon={faMedal}/></div>
+            <div>{ user.rating }</div>
+        </li>
+        <li>
+            <div class="icon"><Icon icon={faHashtag}/></div>
+            <div>250</div>
+        </li>
+        <li>
+            <div class="icon"><Icon icon={faStar}/></div>
+            <div>{ user.contribution }</div>
+        </li>
+    </ul>
 
-</div>
 
-{ #if user.selectedContest }
+    { #if user.selectedContest }
 
-    <div class='contest-name'>
-        { user.selectedContest.contest.name }
-    </div>
+        <div class='contest-name'>
+            { user.selectedContest.contest.name }
+        </div>
 
-    <div class='results'>
+        <div class='results'>
 
-        { #each user.selectedContest.problems as problem, i }
+            { #each user.selectedContest.problems as problem, i }
 
-            <span class='results-index'>({ problem.index })</span>
+                <span class='results-index'>({ problem.index })</span>
 
-            <span class='results-name'>{ problem.name }</span>
+                <span class='results-name'>{ problem.name }</span>
 
 
-            { #if user.selectedContest.rows[0].problemResults[i].rejectedAttemptCount }
-                <span class="icon results-bug-icon"><Icon icon={faBug}/></span>
-                <span class="results-bug-count">
-                    { user.selectedContest.rows[0].problemResults[i].rejectedAttemptCount }
+                { #if user.selectedContest.rows[0].problemResults[i].rejectedAttemptCount }
+                    <span class="icon results-bug-icon"><Icon icon={faBug}/></span>
+                    <span class="results-bug-count">
+                        { user.selectedContest.rows[0].problemResults[i].rejectedAttemptCount }
+                    </span>
+                { /if }
+
+                { #if user.selectedContest.rows[0].problemResults[i].points }
+                    <span class='icon color-green results-check'>
+                        <Icon icon={faCheck}/>
+                    </span>
+                { /if }
+
+                <span class='results-points' class:color-green={user.selectedContest.rows[0].problemResults[i].points }>
+                    { user.selectedContest.rows[0].problemResults[i].points }
                 </span>
-            { /if }
 
-            { #if user.selectedContest.rows[0].problemResults[i].points }
-                <span class='icon color-green results-check'>
-                    <Icon icon={faCheck}/>
-                </span>
-            { /if }
+                <span class='results-sep'>/</span>
 
-            <span class='results-points' class:color-green={user.selectedContest.rows[0].problemResults[i].points }>
-                { user.selectedContest.rows[0].problemResults[i].points }
-            </span>
+                { #if problem.points }
+                    <span class='results-total'>{ problem.points }</span>
+                { :else }
+                    <span class='results-total'>1</span>
+                { /if }
 
-            <span class='results-sep'>/</span>
+            { /each }
 
-            { #if problem.points }
-                <span class='results-total'>{ problem.points }</span>
-            { :else }
-                <span class='results-total'>1</span>
-            { /if }
+        </div>
 
-        { /each }
+    {/if}
 
-    </div>
-
-{/if}
+{ /if }
 
 
 <style>
@@ -103,35 +145,72 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        height: 50px;
     }
 
-    .header-close {
+    .header-chevron {
+        height: 100%;
         color: white;
+        padding-right: 1em;
+    }
+
+    .header-avatar {
+        height: 100%;
     }
 
     .header-handle {
         flex-grow: 1;
+        padding-left: 1em;
     }
 
-    .info-avatar {
+    .header-close {
+        height: 100%;
+        color: white;
+        padding-left: 1em;
+    }
+
+    button:hover, button:focus {
+        color: rgb(170,200,230);
+        outline: none;
+        border: none;
     }
 
     img {
+        height: 100%;
         border-radius: 50%;
-        width: 50px;
     }
 
     .info {
-        display: flex;
-    }
-
-    .info-stats {
         display: grid;
         grid-gap: 0.25em;
         grid-template-columns: auto 5fr;
         flex-grow: 2;
         align-items: center;
         font-size: 0.9rem;
+        margin-top: 0.5em;
+    }
+
+    ul.stats {
+        margin: 0.5em 0;
+        display: flex;
+    }
+
+    ul.stats > li {
+        border: 1px solid rgb(150,150,150);
+        padding: 0.5em;
+        flex-grow: 1;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    ul.stats .icon {
+        margin-right: 0.5em;
+    }
+
+    li + li {
+        margin-left: 0.5em;
     }
 
     .icon {
@@ -149,7 +228,7 @@
 
     .contest-name {
         color: rgb(245, 245, 174);
-        padding: 0.5em 0;
+        margin: 0.5em 0;
         font-size: 0.9rem;
     }
 
