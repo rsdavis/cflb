@@ -1,11 +1,11 @@
 
 import { writable } from 'svelte/store'
-import produce from 'immer'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 
 const init = {
-    selectedUsers: new Map()
+    selectedUsers: new Map(),
+    selectedContest: {}
 }
 
 const { subscribe, update } = writable(init)
@@ -61,37 +61,27 @@ function deselectUser (user) {
 }
 
 
-function addSelectedContest (handle, contest) {
-
-    console.log(contest)
+function addSelectedContest (contest) {
 
     update(store => {
-
-        if (store.selectedUsers.has(handle)) {
-            const user = store.selectedUsers.get(handle)
-            store.selectedUsers.set(handle, Object.assign(user, { selectedContest: contest }))
-            console.log('set', handle)
-        }
-
+        store.selectedContest = contest
         return store
-
     })
 
 }
 
-function selectContest (contestId, handle) {
+function selectContest (contestId) {
 
     update(store => {
 
-        if (store.selectedUsers.has(handle)) {
+        // create handles string
+        const handles = Array.from(store.selectedUsers.keys()).join(';')
 
-            const url = `https://codeforces.com/api/contest.standings?handles=${handle}&contestId=${contestId}`
+        const url = `https://codeforces.com/api/contest.standings?handles=${handles}&contestId=${contestId}`
 
-            axios.get(url)
-                .then(res => addSelectedContest(handle, res.data.result))
-                .catch(err => console.error(err))
-
-        }
+        axios.get(url)
+            .then(res => addSelectedContest(res.data.result))
+            .catch(err => console.err(err))
 
         return store
 

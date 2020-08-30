@@ -18,6 +18,9 @@
     import store from '../store/store.js'
 
     export let user
+    export let contest
+    export let problems
+    export let problemResults
 
     let open = true
 
@@ -62,12 +65,20 @@
 { #if open }
 
     <div class='info'>
-        <div class='icon icon-blue stats-user-icon'><Icon icon={faUser}/></div>
-        <span class='stats-user-name'>{ user.firstName } { user.lastName }</span>
-        <span class='icon icon-blue stats-country-icon'><Icon icon={faGlobe}/></span>
-        <span class='stats-country-name'>{ user.country }</span>
+
+        { #if user.firstName && user.lastName }
+            <div class='icon icon-blue stats-user-icon'><Icon icon={faUser}/></div>
+            <span class='stats-user-name'>{ user.firstName } { user.lastName }</span>
+        { /if }
+
+        { #if user.country }
+            <span class='icon icon-blue stats-country-icon'><Icon icon={faGlobe}/></span>
+            <span class='stats-country-name'>{ user.country }</span>
+        { /if }
+
         <span class='icon icon-yellow stats-rank-icon'><Icon icon={faTrophy}/></span>
         <span class='stats-rank-name'>{ user.rank }</span>
+
     </div>
 
     <ul class='stats'>
@@ -90,36 +101,39 @@
     </ul>
 
 
-    { #if user.selectedContest }
+    { #if contest }
 
         <div class='contest-name'>
-            { user.selectedContest.contest.name }
+            { contest.name }
         </div>
 
-        <div class='results'>
+    { /if }
 
-            { #each user.selectedContest.problems as problem, i }
+    { #if contest && problemResults && problemResults.length }
+
+        <div class="results">
+
+            { #each problems as problem, i }
 
                 <span class='results-index'>({ problem.index })</span>
 
                 <span class='results-name'>{ problem.name }</span>
 
-
-                { #if user.selectedContest.rows[0].problemResults[i].rejectedAttemptCount }
+                { #if problemResults[i].rejectedAttemptCount }
                     <span class="icon results-bug-icon"><Icon icon={faBug}/></span>
                     <span class="results-bug-count">
-                        { user.selectedContest.rows[0].problemResults[i].rejectedAttemptCount }
+                        { problemResults[i].rejectedAttemptCount }
                     </span>
                 { /if }
 
-                { #if user.selectedContest.rows[0].problemResults[i].points }
+                { #if problemResults[i].points }
                     <span class='icon color-green results-check'>
                         <Icon icon={faCheck}/>
                     </span>
                 { /if }
 
-                <span class='results-points' class:color-green={user.selectedContest.rows[0].problemResults[i].points }>
-                    { user.selectedContest.rows[0].problemResults[i].points }
+                <span class='results-points' class:color-green={problemResults[i].points }>
+                    { problemResults[i].points }
                 </span>
 
                 <span class='results-sep'>/</span>
@@ -134,7 +148,9 @@
 
         </div>
 
-    {/if}
+    { :else if contest }
+        <span>Did not participate</span>
+    { /if }
 
 { /if }
 

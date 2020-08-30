@@ -24,6 +24,13 @@
 
     })
 
+    $: contest = $store.selectedContest.contest
+    $: problems = $store.selectedContest && $store.selectedContest.problems
+    $: problemResults = $store.selectedContest.rows && $store.selectedContest.rows.reduce((acc, item) => {
+        item.party.members.forEach(m => acc[m.handle] = item.problemResults)
+        return acc
+    }, {})
+
     function handleClose (user) {
         store.deselectUser(user)
     }
@@ -36,7 +43,7 @@
 
         <li>
 
-            <PaneUsersCard { user } />
+            <PaneUsersCard { user } { contest } { problems } problemResults={problemResults ? problemResults[user.handle] : [] } />
 
         </li>
 
