@@ -21,7 +21,6 @@
     export let user
     export let contest
 
-    console.log(user)
     $: info = user.info.data
     $: ratingsLength = user.ratings.status === 'DONE' ? user.ratings.data.length : null
     $: loading = user.info.status === 'PENDING' || user.ratings.status === 'PENDING' || user.problemResults.status === 'PENDING'
@@ -123,7 +122,7 @@
             { contest.data.name }
         </div>
 
-        { #if user.problemResults.status === 'DONE' }
+        { #if user.problemResults.data.length }
 
             <div class="results">
 
@@ -162,6 +161,8 @@
 
             </div>
 
+        { :else if user.problemResults.status === 'DONE' }
+            <span style='font-size: 0.9rem;'>Did not participate</span>
         { /if }
 
     { /if }
@@ -329,7 +330,7 @@
     }
 
     .spin {
-        animation: spin 2s linear infinite;
+        animation: spin 1.5s linear infinite;
     }
 
 </style>

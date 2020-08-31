@@ -126,11 +126,11 @@ function toggleUser (handle) {
 
             axios.get(url)
                 .then(res => {
-                    addContest(store.contest.id, 'DONE', res.data.result)
+                    addContest(store.contest.id, 'DONE', res.data.result, handle)
                 })
                 .catch(err => {
                     console.error(err)
-                    addContest(store.contest.id, 'ERROR', {})
+                    addContest(store.contest.id, 'ERROR', {}, handle)
                 })
 
         }
@@ -141,7 +141,7 @@ function toggleUser (handle) {
 
 }
 
-function addContest (contestId, status, data) {
+function addContest (contestId, status, data, handles) {
 
     update(store => {
 
@@ -152,9 +152,11 @@ function addContest (contestId, status, data) {
         if (status === 'ERROR') {
             store.contest.status = status
             store.contest.data = {}
-            store.users.forEach(user => {
+            handles.split(';').forEach(handle => {
+                const user = store.users.get(handle)
                 user.problemResults.status = status
                 user.problemResults.data = []
+                store.users.set(handle, user)
             })
             return store
         }
@@ -171,11 +173,18 @@ function addContest (contestId, status, data) {
             row.party.members.forEach(member => {
                 if (store.users.has(member.handle)) {
                     const user = store.users.get(member.handle)
-                    user.problemResults.status = status
                     user.problemResults.data = [ ...row.problemResults ]
                     store.users.set(member.handle, user)
                 }
             })
+        })
+
+        // set status
+
+        handles.split(';').forEach(handle => {
+            const user = store.users.get(handle)
+            user.problemResults.status = 'DONE'
+            store.users.set(handle, user)
         })
 
         return store
@@ -207,10 +216,10 @@ function selectContest (contestId) {
         const url = `https://codeforces.com/api/contest.standings?handles=${handles}&contestId=${contestId}`
 
         axios.get(url)
-            .then(res => addContest(contestId, 'DONE', res.data.result))
+            .then(res => addContest(contestId, 'DONE', res.data.result, handles))
             .catch(err => {
                 console.error(err)
-                addContest(contestId, 'ERROR', {})
+                addContest(contestId, 'ERROR', {}, handles)
             })
 
         return store
