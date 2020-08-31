@@ -33,6 +33,10 @@
         store.toggleUser(user.info.data.handle)
     }
 
+    function upperCase (string) {
+        return string.split(' ').map(s => s[0].toUpperCase() + s.slice(1)).join(' ')
+    }
+
 </script>
 
 <div class="header">
@@ -73,12 +77,12 @@
         { /if }
 
         { #if info.country }
-            <span class='icon icon-blue stats-country-icon'><Icon icon={faGlobe}/></span>
+            <span class='icon icon-green stats-country-icon'><Icon icon={faGlobe}/></span>
             <span class='stats-country-name'>{ info.country }</span>
         { /if }
 
         <span class='icon icon-yellow stats-rank-icon'><Icon icon={faTrophy}/></span>
-        <span class='stats-rank-name'>{ info.rank }</span>
+        <span class='stats-rank-name'>{ upperCase(info.rank) }</span>
 
     </div>
 
@@ -246,6 +250,10 @@
 
     .icon-blue {
         color: rgb(160,185,210);
+    }
+
+    .icon-green {
+        color: green;
     }
 
     .contest-name {
