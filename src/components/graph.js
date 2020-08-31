@@ -31,6 +31,7 @@ class Graph {
         this.users = []
         this.paths = {}
 
+        this.line = this.svg.append('line').attr('opacity', 0).attr('stroke', 'white')
         this.svg.append('g').attr('id', 'paths')
         this.svg.append('g').attr('id', 'halos')
         this.svg.append('g').attr('id', 'nodes')
@@ -61,6 +62,8 @@ class Graph {
             .attr('opacity', 0)
 
         this.mouse = [0,0]
+
+        this.contestId = null
 
     }
 
@@ -93,6 +96,7 @@ class Graph {
         this.drawPoints()
         this.drawPaths()
         this.drawFocus()
+        this.drawLine()
 
     }
 
@@ -198,10 +202,35 @@ class Graph {
 
     }
 
-    _draw (handles, items, width, height) {
+    drawLine () {
+
+        if (!this.contestId) return
+
+        const item = this.items.find(item => item.contestId === this.contestId)
+
+        if (item) {
+
+            const x = this.xt(item.t)
+
+            this.line
+                .attr('opacity', 1)
+                .attr('x1', x)
+                .attr('x2', x)
+                .attr('y1', 0)
+                .attr('y2', this.height)
+
+        }
+        else {
+            this.line.attr('opacity', 0)
+        }
+
+    }
+
+    _draw (handles, items, width, height, contestId) {
 
         this.width = width
         this.height = height
+        this.contestId = contestId
 
         this.items = items
         this.handles = handles
@@ -215,7 +244,7 @@ class Graph {
         this.drawPoints()
         this.drawPaths()
         this.drawFocus()
-
+        this.drawLine()
 
     }
 

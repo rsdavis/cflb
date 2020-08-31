@@ -11,7 +11,7 @@
     let width = 0
     let height = 0
 
-    $: graph && graph._draw($derived.handles, $derived.items, width, height)
+    $: graph && graph._draw($derived.handles, $derived.items, width, height, $store.contest.id)
 
     function init (node) {
 
