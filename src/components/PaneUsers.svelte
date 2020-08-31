@@ -9,7 +9,7 @@
 
 </script>
 
-<ul>
+<ul class='scrollbar'>
 
     { #each userList as user }
 
@@ -24,8 +24,9 @@
 <style>
 
     ul {
-        overflow-y: scroll;
+        overflow-y: auto;
         height: 100%;
+        scrollbar-color: red yellow;
     }
 
     li {

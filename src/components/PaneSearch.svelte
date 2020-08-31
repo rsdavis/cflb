@@ -8,7 +8,7 @@
 
 <div class="container">
 
-    <ul class='search'>
+    <ul class='search scrollbar'>
 
         { #each data as user, index }
 
