@@ -79,8 +79,6 @@ class Graph {
 
     mouseMove () {
 
-        console.log('mousemove')
-
         this.mouse = d3.mouse(this.svg.node())
         const [ x, y ] = this.mouse
         this.closest = this.quadtree.find(x, y)
@@ -90,7 +88,6 @@ class Graph {
 
     zoomed() {
 
-        console.log('zoom')
         this.transform = d3.event.transform
         this.drawAxes()
         this.drawPoints()
@@ -100,8 +97,6 @@ class Graph {
     }
 
     zoomEnd () {
-
-        console.log('zoomEnd')
 
         this.quadtree = d3.quadtree()
             .x(d => this.xt(d.t))
@@ -118,9 +113,8 @@ class Graph {
 
     handleClick () {
 
-        console.log('click')
         if (this.closest && this.onSelectContest) {
-            this.onSelectContest(this.closest.contestId, this.closest.handle)
+            this.onSelectContest(this.closest.contestId)
         }
 
     }
@@ -205,8 +199,6 @@ class Graph {
     }
 
     _draw (handles, items, width, height) {
-
-        console.log('draw', items.length)
 
         this.width = width
         this.height = height

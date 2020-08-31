@@ -4,17 +4,6 @@
     import data from '../data/top100.json'
     import store from '../store/store.js'
 
-    function handleSelect (user) {
-
-        if ($store.selectedUsers.has(user.handle)) {
-            store.deselectUser(user)
-        }
-        else {
-            store.selectUser(user)
-        }
-
-    }
-
 </script>
 
 <div class="container">
@@ -24,8 +13,8 @@
         { #each data as user, index }
 
             <li 
-                on:click={() => handleSelect(user)} 
-                class:selected={$store.selectedUsers.has(user.handle)}
+                on:click={() => store.toggleUser(user.handle)} 
+                class:selected={$store.users.has(user.handle)}
             >
                 <span class="rank">{ index + 1 }</span>
                 <span class="handle">{ user.handle }</span>

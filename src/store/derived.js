@@ -8,10 +8,10 @@ const { subscribe } = derived(store, $store => {
     const handles = []
     let items = []
 
-    $store.selectedUsers.forEach((user, handle) => {
-        if (user.status === 'DONE') {
+    $store.users.forEach((user, handle) => {
+        if (user.ratings.status === 'DONE') {
             handles.push(handle)
-            items = items.concat(user.ratings)
+            items = items.concat(user.ratings.data)
         }
     })
 

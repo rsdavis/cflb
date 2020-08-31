@@ -19,8 +19,9 @@
 
     export let user
     export let contest
-    export let problems
-    export let problemResults
+
+    $: info = user.info.data
+    $: ratingsLength = user.ratings.status === 'DONE' ? user.ratings.data.length : null
 
     let open = true
 
@@ -28,8 +29,8 @@
         open = !open
     }
 
-    function handleClose (user) {
-        store.deselectUser(user)
+    function handleClose () {
+        store.deselectUser(user.info.data.handle)
     }
 
 </script>
@@ -47,11 +48,11 @@
     </button>
 
     <div class="header-avatar">
-        <img src={user.avatar} alt="Avatar"/>
+        <img src={info.avatar} alt="Avatar"/>
     </div>
 
     <div class="header-handle">
-        {user.handle}
+        {info.handle}
     </div>
 
     <button class="header-close" on:click={() => handleClose(user)}>
@@ -66,18 +67,18 @@
 
     <div class='info'>
 
-        { #if user.firstName && user.lastName }
+        { #if info.firstName && info.lastName }
             <div class='icon icon-blue stats-user-icon'><Icon icon={faUser}/></div>
-            <span class='stats-user-name'>{ user.firstName } { user.lastName }</span>
+            <span class='stats-user-name'>{ info.firstName } { info.lastName }</span>
         { /if }
 
-        { #if user.country }
+        { #if info.country }
             <span class='icon icon-blue stats-country-icon'><Icon icon={faGlobe}/></span>
-            <span class='stats-country-name'>{ user.country }</span>
+            <span class='stats-country-name'>{ info.country }</span>
         { /if }
 
         <span class='icon icon-yellow stats-rank-icon'><Icon icon={faTrophy}/></span>
-        <span class='stats-rank-name'>{ user.rank }</span>
+        <span class='stats-rank-name'>{ info.rank }</span>
 
     </div>
 
@@ -88,68 +89,70 @@
         </li>
         <li>
             <div class="icon"><Icon icon={faMedal}/></div>
-            <div>{ user.rating }</div>
+            <div>{ info.rating }</div>
         </li>
-        <li>
-            <div class="icon"><Icon icon={faHashtag}/></div>
-            <div>250</div>
-        </li>
+
+        { #if ratingsLength }
+            <li>
+                <div class="icon"><Icon icon={faHashtag}/></div>
+                <div>{ ratingsLength }</div>
+            </li>
+        { /if }
+
         <li>
             <div class="icon"><Icon icon={faStar}/></div>
-            <div>{ user.contribution }</div>
+            <div>{ info.contribution }</div>
         </li>
     </ul>
 
 
-    { #if contest }
+    { #if contest.status === 'DONE' }
 
         <div class='contest-name'>
-            { contest.name }
+            { contest.data.name }
         </div>
 
-    { /if }
+        { #if user.problemResults.status === 'DONE' }
 
-    { #if contest && problemResults && problemResults.length }
+            <div class="results">
 
-        <div class="results">
+                { #each contest.data.problems as problem, i }
 
-            { #each problems as problem, i }
+                    <span class='results-index'>({ problem.index })</span>
 
-                <span class='results-index'>({ problem.index })</span>
+                    <span class='results-name'>{ problem.name }</span>
 
-                <span class='results-name'>{ problem.name }</span>
+                    { #if user.problemResults.data[i].rejectedAttemptCount }
+                        <span class="icon results-bug-icon"><Icon icon={faBug}/></span>
+                        <span class="results-bug-count">
+                            { user.problemResults.data[i].rejectedAttemptCount }
+                        </span>
+                    { /if }
 
-                { #if problemResults[i].rejectedAttemptCount }
-                    <span class="icon results-bug-icon"><Icon icon={faBug}/></span>
-                    <span class="results-bug-count">
-                        { problemResults[i].rejectedAttemptCount }
+                    { #if user.problemResults.data[i].points }
+                        <span class='icon color-green results-check'>
+                            <Icon icon={faCheck}/>
+                        </span>
+                    { /if }
+
+                    <span class='results-points' class:color-green={user.problemResults.data[i].points }>
+                        { user.problemResults.data[i].points }
                     </span>
-                { /if }
 
-                { #if problemResults[i].points }
-                    <span class='icon color-green results-check'>
-                        <Icon icon={faCheck}/>
-                    </span>
-                { /if }
+                    <span class='results-sep'>/</span>
 
-                <span class='results-points' class:color-green={problemResults[i].points }>
-                    { problemResults[i].points }
-                </span>
+                    { #if problem.points }
+                        <span class='results-total'>{ problem.points }</span>
+                    { :else }
+                        <span class='results-total'>1</span>
+                    { /if }
 
-                <span class='results-sep'>/</span>
+                { /each }
 
-                { #if problem.points }
-                    <span class='results-total'>{ problem.points }</span>
-                { :else }
-                    <span class='results-total'>1</span>
-                { /if }
+            </div>
 
-            { /each }
+        { /if }
 
-        </div>
-
-    { :else if contest }
-        <span>Did not participate</span>
     { /if }
 
 { /if }
@@ -212,7 +215,8 @@
     }
 
     ul.stats > li {
-        border: 1px solid rgb(150,150,150);
+        border: 0px solid rgb(150,150,150);
+        background-color: rgb(70,70,70);
         padding: 0.5em;
         flex-grow: 1;
         border-radius: 10px;
