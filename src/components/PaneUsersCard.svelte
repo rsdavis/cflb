@@ -30,7 +30,7 @@
     }
 
     function handleClose () {
-        store.deselectUser(user.info.data.handle)
+        store.toggleUser(user.info.data.handle)
     }
 
 </script>
@@ -195,8 +195,10 @@
     }
 
     img {
-        height: 100%;
-        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        border-radius: 10px;
+        object-fit: cover;
     }
 
     .info {
