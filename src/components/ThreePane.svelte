@@ -1,46 +1,34 @@
 
 <script>
 
-    let panes = [true, true, true]
+    import PaneDivider from './PaneDivider.svelte'
 
-    function handleDivider (divider) {
-
-        const npanes = panes[0] + panes[1] + panes[2]
-
-        if (panes[divider]) {
-            panes[divider] = false
-        }
-        else {
-            panes[divider] = true
-        }
-
-    }
+    let paneA
+    let paneB
 
 </script>
 
 <div class="container">
 
-    { #if panes[0] }
+    { #if paneA }
         <div class="pane" >
             <slot name='a'></slot>
         </div>
     { /if }
 
-    <div class="divider" on:click={() => handleDivider(0)} />
+    <PaneDivider bind:open={paneA} />
 
-    { #if panes[1] }
+    { #if paneB }
         <div class="pane middle">
             <slot name='b'></slot>
         </div>
     { /if }
 
-    <div class="divider" on:click={() => handleDivider(1)} />
+    <PaneDivider bind:open={paneB} />
 
-    { #if panes[2] }
-        <div class="pane">
-            <slot name='c'></slot>
-        </div>
-    { /if }
+    <div class="pane">
+        <slot name='c'></slot>
+    </div>
 
 </div>
 
@@ -71,14 +59,6 @@
     .pane:last-child {
         width: 100%;
         min-width: 300px;
-    }
-
-    .divider {
-        min-width: 20px;
-        border-left: 1px solid #ccc;
-        border-right: 1px solid #ccc;
-        cursor: pointer;
-        width: 20px;
     }
 
 </style>
