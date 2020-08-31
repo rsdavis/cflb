@@ -14,14 +14,17 @@
     import { faMedal } from '@fortawesome/free-solid-svg-icons/faMedal'
     import { faAward } from '@fortawesome/free-solid-svg-icons/faAward'
     import { faHashtag } from '@fortawesome/free-solid-svg-icons/faHashtag'
+    import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner'
 
     import store from '../store/store.js'
 
     export let user
     export let contest
 
+    console.log(user)
     $: info = user.info.data
     $: ratingsLength = user.ratings.status === 'DONE' ? user.ratings.data.length : null
+    $: loading = user.info.status === 'PENDING' || user.ratings.status === 'PENDING' || user.problemResults.status === 'PENDING'
 
     let open = true
 
@@ -60,8 +63,12 @@
     </div>
 
     <button class="header-close" on:click={() => handleClose(user)}>
-        <div class="icon">
-            <Icon icon={faTimes}/>
+        <div class="icon" class:spin={loading}>
+            { #if loading }
+                <Icon icon={faSpinner}/>
+            { :else }
+                <Icon icon={faTimes}/>
+            { /if }
         </div>
     </button>
 
@@ -314,6 +321,15 @@
 
     .bug-icon {
         color: red;
+    }
+
+    @keyframes spin {
+        from { transform: rotate(0); }
+        to { transform: rotate(360deg);}
+    }
+
+    .spin {
+        animation: spin 2s linear infinite;
     }
 
 </style>
