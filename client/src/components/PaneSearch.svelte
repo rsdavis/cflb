@@ -6,13 +6,21 @@
     import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
 
     import store from '../store/store.js'
+    import SearchStore from '../store/SearchStore.js'
 
-    let promise = axios.get('http://localhost:3000/api/top')
-
-    let query = ''
+    let query
 
     function handleInput () {
-        promise = axios.get(`http://localhost:3000/api/query/${query}`)
+        SearchStore.updateQuery(query)
+    }
+
+    function format (user) {
+        if (user.firstName && user.lastName) {
+            return `${user.handle} (${user.firstName} ${user.lastName})`
+        }
+        else {
+            return user.handle
+        }
     }
 
 </script>
@@ -24,30 +32,59 @@
         <input type="text"  bind:value={query} on:input={handleInput}>
     </div>
 
-    { #await promise }
+    { #if $SearchStore.query.length }
 
-        ...
+        { #await $SearchStore.queryRequestPromise }
 
-    { :then res }
+            <ul>
+                { #each $SearchStore.queryRequestData as user }
+                    <li>{ format(user) }</li>
+                { /each }
+            </ul>
 
-        <ul class='search scrollbar'>
+        { :then res }
 
-            { #each res.data as user, index }
+            { #if $SearchStore.queryRequestData.length }
+                <ul>
+                    { #each $SearchStore.queryRequestData as user }
+                        <li>{ format(user) }</li>
+                    { /each }
+                </ul>
+            { :else }
+                No results found
+            {/if}
 
-                <li 
-                    on:click={() => store.toggleUser(user.handle)} 
-                    class:selected={$store.users.has(user.handle)}
-                >
-                    <span class="rank">{ index + 1 }</span>
-                    <span class="handle">{ user.handle }</span>
-                    <span class="rating">{ user.rating }</span>
-                </li>
+        { /await }
 
-            { /each }
+    { :else }
 
-        </ul>
+        { #await $SearchStore.topRequestPromise }
 
-    { /await }
+            ...
+
+        { :then res }
+
+            <ul class='search scrollbar'>
+
+                { #each res.data as user, index }
+
+                    <li 
+                        on:click={() => store.toggleUser(user.handle)} 
+                        class:selected={$store.users.has(user.handle)}
+                    >
+                        <span class="rank">{ index + 1 }</span>
+                        <span class="handle">{ user.handle }</span>
+                        <span class="rating">{ user.rating }</span>
+                    </li>
+
+                { /each }
+
+            </ul>
+
+        { /await }
+
+    { /if }
+
 
 </div>
 

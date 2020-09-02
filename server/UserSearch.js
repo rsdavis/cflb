@@ -33,7 +33,7 @@ class UserSearch {
 
         console.log(new Date(), 'create trie')
 
-        const newTrie = new TrieSearch(['handle', 'firstName', 'lastName'], { min: 3, ignoreCase: true })
+        const newTrie = new TrieSearch(['handle', 'firstName', 'lastName'], { min: 1, ignoreCase: true })
 
         newTrie.addAll(data)
 

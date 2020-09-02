@@ -33,7 +33,7 @@ class Server {
 
         this.app.use(this.logger)
         this.app.use(KoaResponseTime())
-        this.app.use(KoaDelay(1000))
+        // this.app.use(KoaDelay(1000))
         this.app.use(KoaCors())
         this.app.use(router.routes())
 
@@ -64,7 +64,7 @@ class Server {
     }
 
     async query (ctx) {
-        ctx.body = this.userSearch.queryTrie(ctx.params.query)
+        ctx.body = this.userSearch.queryTrie(ctx.params.query).filter((d,i) => i<20)
     }
 
 }
