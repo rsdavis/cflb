@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "controller.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/router": "^9.4.0",
+    "axios": "^0.20.0",
+    "koa": "^2.13.0",
+    "koa-response-time": "^2.1.0",
+    "trie-search": "^1.2.11"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
