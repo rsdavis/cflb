@@ -7,7 +7,7 @@ class UserSearch {
 
     constructor () {
 
-        const reloadInterval = 15 // minutes
+        const reloadInterval = 60 // minutes
         this.data = []
         this.top100 = []
         this.trie = null
