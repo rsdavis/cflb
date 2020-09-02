@@ -3,8 +3,6 @@ import { writable } from 'svelte/store'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 
-import top100Data from '../data/top100.json'
-
 const initStore = {
     users: new Map(),
     contest: {
@@ -88,20 +86,20 @@ function toggleUser (handle) {
         }
 
         // add user
-
         const newUser = JSON.parse(JSON.stringify(initUser))
         store.users.set(handle, newUser) 
 
         // fetch user info
 
-        const userInfo = top100Data.find(d => d.handle === handle)
-
-        if (userInfo) {
-            addUserInfo(handle, 'DONE', userInfo )
-        }
-        else {
-            addUserInfo(handle, 'ERROR', {})
-        }
+        axios.get(`https://codeforces.com/api/user.info?handles=${handle}`)
+            .then(res => {
+                if (res.data.status == 'OK') addUserInfo(handle, 'DONE', res.data.result[0])
+                else addUserInfo(handle, 'ERROR', {})
+            })
+            .catch(err => {
+                console.error('Error fetching user info: ', handle)
+                addUserInfo(handle, 'ERROR', {})
+            })
 
         // fetch user ratings
 
