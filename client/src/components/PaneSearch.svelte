@@ -2,21 +2,35 @@
 <script>
 
     import axios from 'axios'
+    import Icon from 'fa-svelte'
+    import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
 
     import store from '../store/store.js'
 
-    const promise = axios.get('http://localhost:3000/api/top')
+    let promise = axios.get('http://localhost:3000/api/top')
 
+    let query = ''
+
+    function handleInput () {
+        promise = axios.get(`http://localhost:3000/api/query/${query}`)
+    }
 
 </script>
 
 <div class="container">
 
-    <ul class='search scrollbar'>
+    <div class='input-container'>
+        <Icon class='input-icon' icon={faSearch} />
+        <input type="text"  bind:value={query} on:input={handleInput}>
+    </div>
 
-        { #await promise }
-            ...
-        { :then res }
+    { #await promise }
+
+        ...
+
+    { :then res }
+
+        <ul class='search scrollbar'>
 
             { #each res.data as user, index }
 
@@ -31,9 +45,9 @@
 
             { /each }
 
-        { /await }
+        </ul>
 
-    </ul>
+    { /await }
 
 </div>
 
@@ -43,6 +57,36 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+    }
+
+    .input-container {
+        padding: 0.5em;
+        position: relative;
+    }
+
+    .input-container :global(.input-icon) {
+        position: absolute;
+        left: 1em;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgb(70, 70, 70);
+    }
+
+    input {
+        width: 100%;
+        border: none;
+        border-radius: 20px;
+        margin: 0 auto;
+        display: block;
+        padding: 0.5em 1em 0.5em calc(2.5em - 2px);
+        outline: none;
+        border: 2px solid rgb(45,45,45);
+        font-family: inherit;
+        font-size: inherit;
+    }
+
+    input:focus {
+        border: 2px solid rgb(160,185,210);
     }
 
     ul.search {
@@ -71,7 +115,7 @@
 
     .rank {
         text-align: left;
-        width: 15%;
+        width: 2.5em;
     }
 
     .handle {

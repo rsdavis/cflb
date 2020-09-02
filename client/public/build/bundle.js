@@ -144,6 +144,9 @@ var app = (function () {
     function children(element) {
         return Array.from(element.childNodes);
     }
+    function set_input_value(input, value) {
+        input.value = value == null ? '' : value;
+    }
     function set_style(node, key, value, important) {
         node.style.setProperty(key, value, important ? 'important' : '');
     }
@@ -2850,6 +2853,37 @@ var app = (function () {
 
     var axios$1 = axios_1;
 
+    var faSearch = createCommonjsModule(function (module, exports) {
+    Object.defineProperty(exports, '__esModule', { value: true });
+    var prefix = 'fas';
+    var iconName = 'search';
+    var width = 512;
+    var height = 512;
+    var ligatures = [];
+    var unicode = 'f002';
+    var svgPathData = 'M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z';
+
+    exports.definition = {
+      prefix: prefix,
+      iconName: iconName,
+      icon: [
+        width,
+        height,
+        ligatures,
+        unicode,
+        svgPathData
+      ]};
+
+    exports.faSearch = exports.definition;
+    exports.prefix = prefix;
+    exports.iconName = iconName;
+    exports.width = width;
+    exports.height = height;
+    exports.ligatures = ligatures;
+    exports.unicode = unicode;
+    exports.svgPathData = svgPathData;
+    });
+
     const subscriber_queue = [];
     /**
      * Creates a `Readable` store that allows reading by subscription.
@@ -3253,12 +3287,12 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[4] = list[i];
-    	child_ctx[6] = i;
+    	child_ctx[7] = list[i];
+    	child_ctx[9] = i;
     	return child_ctx;
     }
 
-    // (1:0)  <script>      import axios from 'axios'      import store from '../store/store.js'      const promise = axios.get('http://localhost:3000/api/top')   </script>  <div class="container">      <ul class='search scrollbar'>          { #await promise }
+    // (1:0)  <script>      import axios from 'axios'     import Icon from 'fa-svelte'     import { faSearch }
     function create_catch_block(ctx) {
     	const block = { c: noop, m: noop, p: noop, d: noop };
 
@@ -3266,17 +3300,17 @@ var app = (function () {
     		block,
     		id: create_catch_block.name,
     		type: "catch",
-    		source: "(1:0)  <script>      import axios from 'axios'      import store from '../store/store.js'      const promise = axios.get('http://localhost:3000/api/top')   </script>  <div class=\\\"container\\\">      <ul class='search scrollbar'>          { #await promise }",
+    		source: "(1:0)  <script>      import axios from 'axios'     import Icon from 'fa-svelte'     import { faSearch }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (19:8) { :then res }
+    // (31:4) { :then res }
     function create_then_block(ctx) {
-    	let each_1_anchor;
-    	let each_value = /*res*/ ctx[3].data;
+    	let ul;
+    	let each_value = /*res*/ ctx[6].data;
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -3286,22 +3320,25 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			ul = element("ul");
+
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			each_1_anchor = empty();
+    			attr_dev(ul, "class", "search scrollbar svelte-1rsc836");
+    			add_location(ul, file$3, 32, 8, 652);
     		},
     		m: function mount(target, anchor) {
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(target, anchor);
-    			}
+    			insert_dev(target, ul, anchor);
 
-    			insert_dev(target, each_1_anchor, anchor);
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(ul, null);
+    			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*$store, promise, store*/ 3) {
-    				each_value = /*res*/ ctx[3].data;
+    			if (dirty & /*$store, promise, store*/ 5) {
+    				each_value = /*res*/ ctx[6].data;
     				validate_each_argument(each_value);
     				let i;
 
@@ -3313,7 +3350,7 @@ var app = (function () {
     					} else {
     						each_blocks[i] = create_each_block(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+    						each_blocks[i].m(ul, null);
     					}
     				}
 
@@ -3325,8 +3362,8 @@ var app = (function () {
     			}
     		},
     		d: function destroy(detaching) {
+    			if (detaching) detach_dev(ul);
     			destroy_each(each_blocks, detaching);
-    			if (detaching) detach_dev(each_1_anchor);
     		}
     	};
 
@@ -3334,33 +3371,33 @@ var app = (function () {
     		block,
     		id: create_then_block.name,
     		type: "then",
-    		source: "(19:8) { :then res }",
+    		source: "(31:4) { :then res }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (21:12) { #each res.data as user, index }
+    // (35:12) { #each res.data as user, index }
     function create_each_block(ctx) {
     	let li;
     	let span0;
-    	let t0_value = /*index*/ ctx[6] + 1 + "";
+    	let t0_value = /*index*/ ctx[9] + 1 + "";
     	let t0;
     	let t1;
     	let span1;
-    	let t2_value = /*user*/ ctx[4].handle + "";
+    	let t2_value = /*user*/ ctx[7].handle + "";
     	let t2;
     	let t3;
     	let span2;
-    	let t4_value = /*user*/ ctx[4].rating + "";
+    	let t4_value = /*user*/ ctx[7].rating + "";
     	let t4;
     	let t5;
     	let mounted;
     	let dispose;
 
     	function click_handler(...args) {
-    		return /*click_handler*/ ctx[2](/*user*/ ctx[4], ...args);
+    		return /*click_handler*/ ctx[5](/*user*/ ctx[7], ...args);
     	}
 
     	const block = {
@@ -3375,15 +3412,15 @@ var app = (function () {
     			span2 = element("span");
     			t4 = text(t4_value);
     			t5 = space();
-    			attr_dev(span0, "class", "rank svelte-14i9rsq");
-    			add_location(span0, file$3, 26, 20, 528);
-    			attr_dev(span1, "class", "handle svelte-14i9rsq");
-    			add_location(span1, file$3, 27, 20, 588);
-    			attr_dev(span2, "class", "rating svelte-14i9rsq");
-    			add_location(span2, file$3, 28, 20, 652);
-    			attr_dev(li, "class", "svelte-14i9rsq");
-    			toggle_class(li, "selected", /*$store*/ ctx[0].users.has(/*user*/ ctx[4].handle));
-    			add_location(li, file$3, 22, 16, 350);
+    			attr_dev(span0, "class", "rank svelte-1rsc836");
+    			add_location(span0, file$3, 40, 20, 924);
+    			attr_dev(span1, "class", "handle svelte-1rsc836");
+    			add_location(span1, file$3, 41, 20, 984);
+    			attr_dev(span2, "class", "rating svelte-1rsc836");
+    			add_location(span2, file$3, 42, 20, 1048);
+    			attr_dev(li, "class", "svelte-1rsc836");
+    			toggle_class(li, "selected", /*$store*/ ctx[2].users.has(/*user*/ ctx[7].handle));
+    			add_location(li, file$3, 36, 16, 746);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -3404,9 +3441,11 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
+    			if (dirty & /*promise*/ 1 && t2_value !== (t2_value = /*user*/ ctx[7].handle + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*promise*/ 1 && t4_value !== (t4_value = /*user*/ ctx[7].rating + "")) set_data_dev(t4, t4_value);
 
-    			if (dirty & /*$store, promise*/ 3) {
-    				toggle_class(li, "selected", /*$store*/ ctx[0].users.has(/*user*/ ctx[4].handle));
+    			if (dirty & /*$store, promise*/ 5) {
+    				toggle_class(li, "selected", /*$store*/ ctx[2].users.has(/*user*/ ctx[7].handle));
     			}
     		},
     		d: function destroy(detaching) {
@@ -3420,14 +3459,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(21:12) { #each res.data as user, index }",
+    		source: "(35:12) { #each res.data as user, index }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (17:26)              ...         { :then res }
+    // (27:22)           ...      { :then res }
     function create_pending_block(ctx) {
     	let t;
 
@@ -3448,7 +3487,7 @@ var app = (function () {
     		block,
     		id: create_pending_block.name,
     		type: "pending",
-    		source: "(17:26)              ...         { :then res }",
+    		source: "(27:22)           ...      { :then res }",
     		ctx
     	});
 
@@ -3456,9 +3495,21 @@ var app = (function () {
     }
 
     function create_fragment$3(ctx) {
-    	let div;
-    	let ul;
+    	let div1;
+    	let div0;
+    	let icon;
+    	let t0;
+    	let input;
+    	let t1;
     	let promise_1;
+    	let current;
+    	let mounted;
+    	let dispose;
+
+    	icon = new Icon({
+    			props: { class: "input-icon", icon: faSearch.faSearch },
+    			$$inline: true
+    		});
 
     	let info = {
     		ctx,
@@ -3467,47 +3518,85 @@ var app = (function () {
     		pending: create_pending_block,
     		then: create_then_block,
     		catch: create_catch_block,
-    		value: 3
+    		value: 6
     	};
 
-    	handle_promise(promise_1 = /*promise*/ ctx[1], info);
+    	handle_promise(promise_1 = /*promise*/ ctx[0], info);
 
     	const block = {
     		c: function create() {
-    			div = element("div");
-    			ul = element("ul");
+    			div1 = element("div");
+    			div0 = element("div");
+    			create_component(icon.$$.fragment);
+    			t0 = space();
+    			input = element("input");
+    			t1 = space();
     			info.block.c();
-    			attr_dev(ul, "class", "search scrollbar svelte-14i9rsq");
-    			add_location(ul, file$3, 14, 4, 190);
-    			attr_dev(div, "class", "container svelte-14i9rsq");
-    			add_location(div, file$3, 12, 0, 161);
+    			attr_dev(input, "type", "text");
+    			attr_dev(input, "class", "svelte-1rsc836");
+    			add_location(input, file$3, 23, 8, 513);
+    			attr_dev(div0, "class", "input-container svelte-1rsc836");
+    			add_location(div0, file$3, 21, 4, 423);
+    			attr_dev(div1, "class", "container svelte-1rsc836");
+    			add_location(div1, file$3, 19, 0, 394);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, ul);
-    			info.block.m(ul, info.anchor = null);
-    			info.mount = () => ul;
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, div0);
+    			mount_component(icon, div0, null);
+    			append_dev(div0, t0);
+    			append_dev(div0, input);
+    			set_input_value(input, /*query*/ ctx[1]);
+    			append_dev(div1, t1);
+    			info.block.m(div1, info.anchor = null);
+    			info.mount = () => div1;
     			info.anchor = null;
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[4]),
+    					listen_dev(input, "input", /*handleInput*/ ctx[3], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
     		},
     		p: function update(new_ctx, [dirty]) {
     			ctx = new_ctx;
 
-    			{
+    			if (dirty & /*query*/ 2 && input.value !== /*query*/ ctx[1]) {
+    				set_input_value(input, /*query*/ ctx[1]);
+    			}
+
+    			info.ctx = ctx;
+
+    			if (dirty & /*promise*/ 1 && promise_1 !== (promise_1 = /*promise*/ ctx[0]) && handle_promise(promise_1, info)) ; else {
     				const child_ctx = ctx.slice();
-    				child_ctx[3] = info.resolved;
+    				child_ctx[6] = info.resolved;
     				info.block.p(child_ctx, dirty);
     			}
     		},
-    		i: noop,
-    		o: noop,
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(icon.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(icon.$$.fragment, local);
+    			current = false;
+    		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(div1);
+    			destroy_component(icon);
     			info.block.d();
     			info.token = null;
     			info = null;
+    			mounted = false;
+    			run_all(dispose);
     		}
     	};
 
@@ -3525,8 +3614,14 @@ var app = (function () {
     function instance$3($$self, $$props, $$invalidate) {
     	let $store;
     	validate_store(store, "store");
-    	component_subscribe($$self, store, $$value => $$invalidate(0, $store = $$value));
-    	const promise = axios$1.get("http://localhost:3000/api/top");
+    	component_subscribe($$self, store, $$value => $$invalidate(2, $store = $$value));
+    	let promise = axios$1.get("http://localhost:3000/api/top");
+    	let query = "";
+
+    	function handleInput() {
+    		$$invalidate(0, promise = axios$1.get(`http://localhost:3000/api/query/${query}`));
+    	}
+
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -3535,9 +3630,35 @@ var app = (function () {
 
     	let { $$slots = {}, $$scope } = $$props;
     	validate_slots("PaneSearch", $$slots, []);
+
+    	function input_input_handler() {
+    		query = this.value;
+    		$$invalidate(1, query);
+    	}
+
     	const click_handler = user => store.toggleUser(user.handle);
-    	$$self.$capture_state = () => ({ axios: axios$1, store, promise, $store });
-    	return [$store, promise, click_handler];
+
+    	$$self.$capture_state = () => ({
+    		axios: axios$1,
+    		Icon,
+    		faSearch: faSearch.faSearch,
+    		store,
+    		promise,
+    		query,
+    		handleInput,
+    		$store
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("promise" in $$props) $$invalidate(0, promise = $$props.promise);
+    		if ("query" in $$props) $$invalidate(1, query = $$props.query);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [promise, query, $store, handleInput, input_input_handler, click_handler];
     }
 
     class PaneSearch extends SvelteComponentDev {
