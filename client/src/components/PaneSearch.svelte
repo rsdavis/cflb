@@ -1,8 +1,12 @@
 
 <script>
 
-    import data from '../data/top100.json'
+    import axios from 'axios'
+
     import store from '../store/store.js'
+
+    const promise = axios.get('http://localhost:3000/api/top')
+
 
 </script>
 
@@ -10,18 +14,24 @@
 
     <ul class='search scrollbar'>
 
-        { #each data as user, index }
+        { #await promise }
+            ...
+        { :then res }
 
-            <li 
-                on:click={() => store.toggleUser(user.handle)} 
-                class:selected={$store.users.has(user.handle)}
-            >
-                <span class="rank">{ index + 1 }</span>
-                <span class="handle">{ user.handle }</span>
-                <span class="rating">{ user.rating }</span>
-            </li>
+            { #each res.data as user, index }
 
-        { /each }
+                <li 
+                    on:click={() => store.toggleUser(user.handle)} 
+                    class:selected={$store.users.has(user.handle)}
+                >
+                    <span class="rank">{ index + 1 }</span>
+                    <span class="handle">{ user.handle }</span>
+                    <span class="rating">{ user.rating }</span>
+                </li>
+
+            { /each }
+
+        { /await }
 
     </ul>
 

@@ -30,6 +30,7 @@
         <slot name='c'></slot>
     </div>
 
+    <slot/>
 </div>
 
 <style>

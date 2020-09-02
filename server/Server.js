@@ -2,7 +2,21 @@
 const http = require('http')
 const Koa = require('koa')
 const Router = require('@koa/router')
+const KoaCors = require('@koa/cors')
 const KoaResponseTime = require('koa-response-time')
+
+function sleep(timeout) {
+    return new Promise(resolve => {
+        setTimeout(resolve, timeout)
+    })
+}
+
+function KoaDelay (timeout) {
+    return async (ctx,next) => {
+        await sleep(timeout)
+        await next()
+    }
+}
 
 class Server {
 
@@ -18,8 +32,9 @@ class Server {
         router.get('/api/query/:query', this.query.bind(this))
 
         this.app.use(this.logger)
-
         this.app.use(KoaResponseTime())
+        this.app.use(KoaDelay(1000))
+        this.app.use(KoaCors())
         this.app.use(router.routes())
 
     }
