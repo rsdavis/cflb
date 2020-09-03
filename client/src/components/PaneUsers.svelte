@@ -24,9 +24,7 @@
 <style>
 
     ul {
-        overflow-y: auto;
         height: 100%;
-        scrollbar-color: red yellow;
     }
 
     li {

@@ -39,6 +39,7 @@ img {
 
 .scrollable {
     overflow-y: auto;
+    scrollbar-color: rgb(200,200,200) transparent;
 }
 
 .scrollable::-webkit-scrollbar {

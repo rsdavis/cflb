@@ -111,10 +111,13 @@
             <div class="icon"><Icon icon={faAward}/></div>
             <div>1</div>
         </li>
+
+        { #if info.rating }
         <li>
             <div class="icon"><Icon icon={faMedal}/></div>
             <div>{ info.rating }</div>
         </li>
+        { /if }
 
         { #if ratingsLength }
             <li>
@@ -123,10 +126,12 @@
             </li>
         { /if }
 
-        <li>
-            <div class="icon"><Icon icon={faStar}/></div>
-            <div>{ info.contribution }</div>
-        </li>
+        { #if info.contribution }
+            <li>
+                <div class="icon"><Icon icon={faStar}/></div>
+                <div>{ info.contribution }</div>
+            </li>
+        { /if }
     </ul>
 
 
@@ -252,6 +257,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        max-width: 33%;
     }
 
     ul.stats .icon {

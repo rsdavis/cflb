@@ -22,8 +22,14 @@
             const observer = new ResizeObserver(entries => {
 
                 for (const entry of entries) {
-                    width = entry.borderBoxSize[0].inlineSize
-                    height = entry.borderBoxSize[0].blockSize
+                    if (entry.borderBoxSize && entry.borderBoxSize.length > 0) {
+                        width = entry.borderBoxSize[0].inlineSize
+                        height = entry.borderBoxSize[0].blockSize
+                    }
+                    else {
+                        width = entry.contentRect.width
+                        height = entry.contentRect.height
+                    }
                 }
 
                 if (graph) graph._draw($derived.handles, $derived.items, width, height)

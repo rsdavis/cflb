@@ -4644,7 +4644,7 @@ var app = (function () {
     }
 
     // (56:12) { #if open }
-    function create_if_block_12(ctx) {
+    function create_if_block_14(ctx) {
     	let icon;
     	let current;
 
@@ -4678,7 +4678,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_12.name,
+    		id: create_if_block_14.name,
     		type: "if",
     		source: "(56:12) { #if open }",
     		ctx
@@ -4712,7 +4712,7 @@ var app = (function () {
     			img = element("img");
     			if (img.src !== (img_src_value = /*info*/ ctx[3].avatar)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "User avatar");
-    			attr_dev(img, "class", "svelte-17zhupk");
+    			attr_dev(img, "class", "svelte-1vx7f3v");
     			add_location(img, file$4, 67, 12, 2283);
     		},
     		m: function mount(target, anchor) {
@@ -4749,7 +4749,7 @@ var app = (function () {
     			img = element("img");
     			if (img.src !== (img_src_value = "no-avatar.jpg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Pending avatar");
-    			attr_dev(img, "class", "svelte-17zhupk");
+    			attr_dev(img, "class", "svelte-1vx7f3v");
     			add_location(img, file$4, 65, 12, 2203);
     		},
     		m: function mount(target, anchor) {
@@ -4813,7 +4813,7 @@ var app = (function () {
     }
 
     // (78:12) { #if loading }
-    function create_if_block_11(ctx) {
+    function create_if_block_13(ctx) {
     	let icon;
     	let current;
 
@@ -4847,7 +4847,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_11.name,
+    		id: create_if_block_13.name,
     		type: "if",
     		source: "(78:12) { #if loading }",
     		ctx
@@ -4863,39 +4863,25 @@ var app = (function () {
     	let t1;
     	let t2;
     	let ul;
-    	let li0;
+    	let li;
     	let div1;
-    	let icon0;
+    	let icon;
     	let t3;
     	let div2;
     	let t5;
-    	let li1;
-    	let div3;
-    	let icon1;
     	let t6;
-    	let div4;
-    	let t7_value = /*info*/ ctx[3].rating + "";
     	let t7;
     	let t8;
-    	let t9;
-    	let li2;
-    	let div5;
-    	let icon2;
-    	let t10;
-    	let div6;
-    	let t11_value = /*info*/ ctx[3].contribution + "";
-    	let t11;
-    	let t12;
-    	let if_block4_anchor;
+    	let if_block6_anchor;
     	let current;
-    	let if_block0 = /*info*/ ctx[3].firstName && /*info*/ ctx[3].lastName && create_if_block_10(ctx);
-    	let if_block1 = /*info*/ ctx[3].country && create_if_block_9(ctx);
-    	let if_block2 = /*info*/ ctx[3].rank && create_if_block_8(ctx);
-    	icon0 = new Icon({ props: { icon: faAward.faAward }, $$inline: true });
-    	icon1 = new Icon({ props: { icon: faMedal.faMedal }, $$inline: true });
-    	let if_block3 = /*ratingsLength*/ ctx[4] && create_if_block_7(ctx);
-    	icon2 = new Icon({ props: { icon: faStar.faStar }, $$inline: true });
-    	let if_block4 = /*contest*/ ctx[1].status === "DONE" && create_if_block_1$2(ctx);
+    	let if_block0 = /*info*/ ctx[3].firstName && /*info*/ ctx[3].lastName && create_if_block_12(ctx);
+    	let if_block1 = /*info*/ ctx[3].country && create_if_block_11(ctx);
+    	let if_block2 = /*info*/ ctx[3].rank && create_if_block_10(ctx);
+    	icon = new Icon({ props: { icon: faAward.faAward }, $$inline: true });
+    	let if_block3 = /*info*/ ctx[3].rating && create_if_block_9(ctx);
+    	let if_block4 = /*ratingsLength*/ ctx[4] && create_if_block_8(ctx);
+    	let if_block5 = /*info*/ ctx[3].contribution && create_if_block_7(ctx);
+    	let if_block6 = /*contest*/ ctx[1].status === "DONE" && create_if_block_1$2(ctx);
 
     	const block = {
     		c: function create() {
@@ -4907,49 +4893,29 @@ var app = (function () {
     			if (if_block2) if_block2.c();
     			t2 = space();
     			ul = element("ul");
-    			li0 = element("li");
+    			li = element("li");
     			div1 = element("div");
-    			create_component(icon0.$$.fragment);
+    			create_component(icon.$$.fragment);
     			t3 = space();
     			div2 = element("div");
     			div2.textContent = "1";
     			t5 = space();
-    			li1 = element("li");
-    			div3 = element("div");
-    			create_component(icon1.$$.fragment);
-    			t6 = space();
-    			div4 = element("div");
-    			t7 = text(t7_value);
-    			t8 = space();
     			if (if_block3) if_block3.c();
-    			t9 = space();
-    			li2 = element("li");
-    			div5 = element("div");
-    			create_component(icon2.$$.fragment);
-    			t10 = space();
-    			div6 = element("div");
-    			t11 = text(t11_value);
-    			t12 = space();
+    			t6 = space();
     			if (if_block4) if_block4.c();
-    			if_block4_anchor = empty();
-    			attr_dev(div0, "class", "info svelte-17zhupk");
+    			t7 = space();
+    			if (if_block5) if_block5.c();
+    			t8 = space();
+    			if (if_block6) if_block6.c();
+    			if_block6_anchor = empty();
+    			attr_dev(div0, "class", "info svelte-1vx7f3v");
     			add_location(div0, file$4, 89, 4, 2746);
-    			attr_dev(div1, "class", "icon svelte-17zhupk");
+    			attr_dev(div1, "class", "icon svelte-1vx7f3v");
     			add_location(div1, file$4, 110, 12, 3474);
     			add_location(div2, file$4, 111, 12, 3533);
-    			attr_dev(li0, "class", "svelte-17zhupk");
-    			add_location(li0, file$4, 109, 8, 3457);
-    			attr_dev(div3, "class", "icon svelte-17zhupk");
-    			add_location(div3, file$4, 114, 12, 3585);
-    			add_location(div4, file$4, 115, 12, 3644);
-    			attr_dev(li1, "class", "svelte-17zhupk");
-    			add_location(li1, file$4, 113, 8, 3568);
-    			attr_dev(div5, "class", "icon svelte-17zhupk");
-    			add_location(div5, file$4, 126, 12, 3903);
-    			add_location(div6, file$4, 127, 12, 3961);
-    			attr_dev(li2, "class", "svelte-17zhupk");
-    			add_location(li2, file$4, 125, 8, 3886);
-    			attr_dev(ul, "class", "stats svelte-17zhupk");
+    			attr_dev(li, "class", "svelte-1vx7f3v");
+    			add_location(li, file$4, 109, 8, 3457);
+    			attr_dev(ul, "class", "stats svelte-1vx7f3v");
     			add_location(ul, file$4, 108, 4, 3430);
     		},
     		m: function mount(target, anchor) {
@@ -4961,30 +4927,20 @@ var app = (function () {
     			if (if_block2) if_block2.m(div0, null);
     			insert_dev(target, t2, anchor);
     			insert_dev(target, ul, anchor);
-    			append_dev(ul, li0);
-    			append_dev(li0, div1);
-    			mount_component(icon0, div1, null);
-    			append_dev(li0, t3);
-    			append_dev(li0, div2);
+    			append_dev(ul, li);
+    			append_dev(li, div1);
+    			mount_component(icon, div1, null);
+    			append_dev(li, t3);
+    			append_dev(li, div2);
     			append_dev(ul, t5);
-    			append_dev(ul, li1);
-    			append_dev(li1, div3);
-    			mount_component(icon1, div3, null);
-    			append_dev(li1, t6);
-    			append_dev(li1, div4);
-    			append_dev(div4, t7);
-    			append_dev(ul, t8);
     			if (if_block3) if_block3.m(ul, null);
-    			append_dev(ul, t9);
-    			append_dev(ul, li2);
-    			append_dev(li2, div5);
-    			mount_component(icon2, div5, null);
-    			append_dev(li2, t10);
-    			append_dev(li2, div6);
-    			append_dev(div6, t11);
-    			insert_dev(target, t12, anchor);
-    			if (if_block4) if_block4.m(target, anchor);
-    			insert_dev(target, if_block4_anchor, anchor);
+    			append_dev(ul, t6);
+    			if (if_block4) if_block4.m(ul, null);
+    			append_dev(ul, t7);
+    			if (if_block5) if_block5.m(ul, null);
+    			insert_dev(target, t8, anchor);
+    			if (if_block6) if_block6.m(target, anchor);
+    			insert_dev(target, if_block6_anchor, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
@@ -4996,7 +4952,7 @@ var app = (function () {
     						transition_in(if_block0, 1);
     					}
     				} else {
-    					if_block0 = create_if_block_10(ctx);
+    					if_block0 = create_if_block_12(ctx);
     					if_block0.c();
     					transition_in(if_block0, 1);
     					if_block0.m(div0, t0);
@@ -5019,7 +4975,7 @@ var app = (function () {
     						transition_in(if_block1, 1);
     					}
     				} else {
-    					if_block1 = create_if_block_9(ctx);
+    					if_block1 = create_if_block_11(ctx);
     					if_block1.c();
     					transition_in(if_block1, 1);
     					if_block1.m(div0, t1);
@@ -5042,7 +4998,7 @@ var app = (function () {
     						transition_in(if_block2, 1);
     					}
     				} else {
-    					if_block2 = create_if_block_8(ctx);
+    					if_block2 = create_if_block_10(ctx);
     					if_block2.c();
     					transition_in(if_block2, 1);
     					if_block2.m(div0, null);
@@ -5057,20 +5013,18 @@ var app = (function () {
     				check_outros();
     			}
 
-    			if ((!current || dirty & /*info*/ 8) && t7_value !== (t7_value = /*info*/ ctx[3].rating + "")) set_data_dev(t7, t7_value);
-
-    			if (/*ratingsLength*/ ctx[4]) {
+    			if (/*info*/ ctx[3].rating) {
     				if (if_block3) {
     					if_block3.p(ctx, dirty);
 
-    					if (dirty & /*ratingsLength*/ 16) {
+    					if (dirty & /*info*/ 8) {
     						transition_in(if_block3, 1);
     					}
     				} else {
-    					if_block3 = create_if_block_7(ctx);
+    					if_block3 = create_if_block_9(ctx);
     					if_block3.c();
     					transition_in(if_block3, 1);
-    					if_block3.m(ul, t9);
+    					if_block3.m(ul, t6);
     				}
     			} else if (if_block3) {
     				group_outros();
@@ -5082,20 +5036,18 @@ var app = (function () {
     				check_outros();
     			}
 
-    			if ((!current || dirty & /*info*/ 8) && t11_value !== (t11_value = /*info*/ ctx[3].contribution + "")) set_data_dev(t11, t11_value);
-
-    			if (/*contest*/ ctx[1].status === "DONE") {
+    			if (/*ratingsLength*/ ctx[4]) {
     				if (if_block4) {
     					if_block4.p(ctx, dirty);
 
-    					if (dirty & /*contest*/ 2) {
+    					if (dirty & /*ratingsLength*/ 16) {
     						transition_in(if_block4, 1);
     					}
     				} else {
-    					if_block4 = create_if_block_1$2(ctx);
+    					if_block4 = create_if_block_8(ctx);
     					if_block4.c();
     					transition_in(if_block4, 1);
-    					if_block4.m(if_block4_anchor.parentNode, if_block4_anchor);
+    					if_block4.m(ul, t7);
     				}
     			} else if (if_block4) {
     				group_outros();
@@ -5106,28 +5058,74 @@ var app = (function () {
 
     				check_outros();
     			}
+
+    			if (/*info*/ ctx[3].contribution) {
+    				if (if_block5) {
+    					if_block5.p(ctx, dirty);
+
+    					if (dirty & /*info*/ 8) {
+    						transition_in(if_block5, 1);
+    					}
+    				} else {
+    					if_block5 = create_if_block_7(ctx);
+    					if_block5.c();
+    					transition_in(if_block5, 1);
+    					if_block5.m(ul, null);
+    				}
+    			} else if (if_block5) {
+    				group_outros();
+
+    				transition_out(if_block5, 1, 1, () => {
+    					if_block5 = null;
+    				});
+
+    				check_outros();
+    			}
+
+    			if (/*contest*/ ctx[1].status === "DONE") {
+    				if (if_block6) {
+    					if_block6.p(ctx, dirty);
+
+    					if (dirty & /*contest*/ 2) {
+    						transition_in(if_block6, 1);
+    					}
+    				} else {
+    					if_block6 = create_if_block_1$2(ctx);
+    					if_block6.c();
+    					transition_in(if_block6, 1);
+    					if_block6.m(if_block6_anchor.parentNode, if_block6_anchor);
+    				}
+    			} else if (if_block6) {
+    				group_outros();
+
+    				transition_out(if_block6, 1, 1, () => {
+    					if_block6 = null;
+    				});
+
+    				check_outros();
+    			}
     		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(if_block0);
     			transition_in(if_block1);
     			transition_in(if_block2);
-    			transition_in(icon0.$$.fragment, local);
-    			transition_in(icon1.$$.fragment, local);
+    			transition_in(icon.$$.fragment, local);
     			transition_in(if_block3);
-    			transition_in(icon2.$$.fragment, local);
     			transition_in(if_block4);
+    			transition_in(if_block5);
+    			transition_in(if_block6);
     			current = true;
     		},
     		o: function outro(local) {
     			transition_out(if_block0);
     			transition_out(if_block1);
     			transition_out(if_block2);
-    			transition_out(icon0.$$.fragment, local);
-    			transition_out(icon1.$$.fragment, local);
+    			transition_out(icon.$$.fragment, local);
     			transition_out(if_block3);
-    			transition_out(icon2.$$.fragment, local);
     			transition_out(if_block4);
+    			transition_out(if_block5);
+    			transition_out(if_block6);
     			current = false;
     		},
     		d: function destroy(detaching) {
@@ -5137,13 +5135,13 @@ var app = (function () {
     			if (if_block2) if_block2.d();
     			if (detaching) detach_dev(t2);
     			if (detaching) detach_dev(ul);
-    			destroy_component(icon0);
-    			destroy_component(icon1);
+    			destroy_component(icon);
     			if (if_block3) if_block3.d();
-    			destroy_component(icon2);
-    			if (detaching) detach_dev(t12);
-    			if (if_block4) if_block4.d(detaching);
-    			if (detaching) detach_dev(if_block4_anchor);
+    			if (if_block4) if_block4.d();
+    			if (if_block5) if_block5.d();
+    			if (detaching) detach_dev(t8);
+    			if (if_block6) if_block6.d(detaching);
+    			if (detaching) detach_dev(if_block6_anchor);
     		}
     	};
 
@@ -5159,7 +5157,7 @@ var app = (function () {
     }
 
     // (92:8) { #if info.firstName && info.lastName }
-    function create_if_block_10(ctx) {
+    function create_if_block_12(ctx) {
     	let div;
     	let icon;
     	let t0;
@@ -5181,7 +5179,7 @@ var app = (function () {
     			t1 = text(t1_value);
     			t2 = space();
     			t3 = text(t3_value);
-    			attr_dev(div, "class", "icon icon-blue stats-user-icon svelte-17zhupk");
+    			attr_dev(div, "class", "icon icon-blue stats-user-icon svelte-1vx7f3v");
     			add_location(div, file$4, 92, 12, 2826);
     			attr_dev(span, "class", "stats-user-name");
     			add_location(span, file$4, 93, 12, 2910);
@@ -5219,7 +5217,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_10.name,
+    		id: create_if_block_12.name,
     		type: "if",
     		source: "(92:8) { #if info.firstName && info.lastName }",
     		ctx
@@ -5229,7 +5227,7 @@ var app = (function () {
     }
 
     // (97:8) { #if info.country }
-    function create_if_block_9(ctx) {
+    function create_if_block_11(ctx) {
     	let span0;
     	let icon;
     	let t0;
@@ -5246,7 +5244,7 @@ var app = (function () {
     			t0 = space();
     			span1 = element("span");
     			t1 = text(t1_value);
-    			attr_dev(span0, "class", "icon icon-green stats-country-icon svelte-17zhupk");
+    			attr_dev(span0, "class", "icon icon-green stats-country-icon svelte-1vx7f3v");
     			add_location(span0, file$4, 97, 12, 3042);
     			attr_dev(span1, "class", "stats-country-name");
     			add_location(span1, file$4, 98, 12, 3133);
@@ -5281,7 +5279,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_9.name,
+    		id: create_if_block_11.name,
     		type: "if",
     		source: "(97:8) { #if info.country }",
     		ctx
@@ -5291,7 +5289,7 @@ var app = (function () {
     }
 
     // (102:8) { #if info.rank }
-    function create_if_block_8(ctx) {
+    function create_if_block_10(ctx) {
     	let span0;
     	let icon;
     	let t0;
@@ -5312,7 +5310,7 @@ var app = (function () {
     			t0 = space();
     			span1 = element("span");
     			t1 = text(t1_value);
-    			attr_dev(span0, "class", "icon icon-yellow stats-rank-icon svelte-17zhupk");
+    			attr_dev(span0, "class", "icon icon-yellow stats-rank-icon svelte-1vx7f3v");
     			add_location(span0, file$4, 102, 12, 3245);
     			attr_dev(span1, "class", "stats-rank-name");
     			add_location(span1, file$4, 103, 12, 3335);
@@ -5347,7 +5345,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_8.name,
+    		id: create_if_block_10.name,
     		type: "if",
     		source: "(102:8) { #if info.rank }",
     		ctx
@@ -5356,8 +5354,72 @@ var app = (function () {
     	return block;
     }
 
-    // (119:8) { #if ratingsLength }
-    function create_if_block_7(ctx) {
+    // (115:8) { #if info.rating }
+    function create_if_block_9(ctx) {
+    	let li;
+    	let div0;
+    	let icon;
+    	let t0;
+    	let div1;
+    	let t1_value = /*info*/ ctx[3].rating + "";
+    	let t1;
+    	let current;
+    	icon = new Icon({ props: { icon: faMedal.faMedal }, $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			li = element("li");
+    			div0 = element("div");
+    			create_component(icon.$$.fragment);
+    			t0 = space();
+    			div1 = element("div");
+    			t1 = text(t1_value);
+    			attr_dev(div0, "class", "icon svelte-1vx7f3v");
+    			add_location(div0, file$4, 116, 12, 3614);
+    			add_location(div1, file$4, 117, 12, 3673);
+    			attr_dev(li, "class", "svelte-1vx7f3v");
+    			add_location(li, file$4, 115, 8, 3597);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, li, anchor);
+    			append_dev(li, div0);
+    			mount_component(icon, div0, null);
+    			append_dev(li, t0);
+    			append_dev(li, div1);
+    			append_dev(div1, t1);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if ((!current || dirty & /*info*/ 8) && t1_value !== (t1_value = /*info*/ ctx[3].rating + "")) set_data_dev(t1, t1_value);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(icon.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(icon.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(li);
+    			destroy_component(icon);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_9.name,
+    		type: "if",
+    		source: "(115:8) { #if info.rating }",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (122:8) { #if ratingsLength }
+    function create_if_block_8(ctx) {
     	let li;
     	let div0;
     	let icon;
@@ -5379,11 +5441,11 @@ var app = (function () {
     			t0 = space();
     			div1 = element("div");
     			t1 = text(/*ratingsLength*/ ctx[4]);
-    			attr_dev(div0, "class", "icon svelte-17zhupk");
-    			add_location(div0, file$4, 120, 16, 3749);
-    			add_location(div1, file$4, 121, 16, 3814);
-    			attr_dev(li, "class", "svelte-17zhupk");
-    			add_location(li, file$4, 119, 12, 3728);
+    			attr_dev(div0, "class", "icon svelte-1vx7f3v");
+    			add_location(div0, file$4, 123, 16, 3794);
+    			add_location(div1, file$4, 124, 16, 3859);
+    			attr_dev(li, "class", "svelte-1vx7f3v");
+    			add_location(li, file$4, 122, 12, 3773);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -5414,16 +5476,80 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_7.name,
+    		id: create_if_block_8.name,
     		type: "if",
-    		source: "(119:8) { #if ratingsLength }",
+    		source: "(122:8) { #if ratingsLength }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (133:4) { #if contest.status === 'DONE' }
+    // (129:8) { #if info.contribution }
+    function create_if_block_7(ctx) {
+    	let li;
+    	let div0;
+    	let icon;
+    	let t0;
+    	let div1;
+    	let t1_value = /*info*/ ctx[3].contribution + "";
+    	let t1;
+    	let current;
+    	icon = new Icon({ props: { icon: faStar.faStar }, $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			li = element("li");
+    			div0 = element("div");
+    			create_component(icon.$$.fragment);
+    			t0 = space();
+    			div1 = element("div");
+    			t1 = text(t1_value);
+    			attr_dev(div0, "class", "icon svelte-1vx7f3v");
+    			add_location(div0, file$4, 130, 16, 3990);
+    			add_location(div1, file$4, 131, 16, 4052);
+    			attr_dev(li, "class", "svelte-1vx7f3v");
+    			add_location(li, file$4, 129, 12, 3969);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, li, anchor);
+    			append_dev(li, div0);
+    			mount_component(icon, div0, null);
+    			append_dev(li, t0);
+    			append_dev(li, div1);
+    			append_dev(div1, t1);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if ((!current || dirty & /*info*/ 8) && t1_value !== (t1_value = /*info*/ ctx[3].contribution + "")) set_data_dev(t1, t1_value);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(icon.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(icon.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(li);
+    			destroy_component(icon);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_7.name,
+    		type: "if",
+    		source: "(129:8) { #if info.contribution }",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (138:4) { #if contest.status === 'DONE' }
     function create_if_block_1$2(ctx) {
     	let div;
     	let t0_value = /*contest*/ ctx[1].data.name + "";
@@ -5453,8 +5579,8 @@ var app = (function () {
     			t1 = space();
     			if (if_block) if_block.c();
     			if_block_anchor = empty();
-    			attr_dev(div, "class", "contest-name svelte-17zhupk");
-    			add_location(div, file$4, 134, 8, 4067);
+    			attr_dev(div, "class", "contest-name svelte-1vx7f3v");
+    			add_location(div, file$4, 139, 8, 4178);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -5528,14 +5654,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1$2.name,
     		type: "if",
-    		source: "(133:4) { #if contest.status === 'DONE' }",
+    		source: "(138:4) { #if contest.status === 'DONE' }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (178:58) 
+    // (183:58) 
     function create_if_block_6(ctx) {
     	let span;
 
@@ -5544,7 +5670,7 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "Did not participate";
     			set_style(span, "font-size", "0.9rem");
-    			add_location(span, file$4, 178, 12, 5661);
+    			add_location(span, file$4, 183, 12, 5772);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -5561,14 +5687,14 @@ var app = (function () {
     		block,
     		id: create_if_block_6.name,
     		type: "if",
-    		source: "(178:58) ",
+    		source: "(183:58) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (139:8) { #if user.problemResults.data.length }
+    // (144:8) { #if user.problemResults.data.length }
     function create_if_block_2(ctx) {
     	let div;
     	let current;
@@ -5592,8 +5718,8 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div, "class", "results svelte-17zhupk");
-    			add_location(div, file$4, 140, 12, 4205);
+    			attr_dev(div, "class", "results svelte-1vx7f3v");
+    			add_location(div, file$4, 145, 12, 4316);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -5661,14 +5787,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(139:8) { #if user.problemResults.data.length }",
+    		source: "(144:8) { #if user.problemResults.data.length }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (149:20) { #if user.problemResults.data[i].rejectedAttemptCount }
+    // (154:20) { #if user.problemResults.data[i].rejectedAttemptCount }
     function create_if_block_5(ctx) {
     	let span0;
     	let icon;
@@ -5686,10 +5812,10 @@ var app = (function () {
     			t0 = space();
     			span1 = element("span");
     			t1 = text(t1_value);
-    			attr_dev(span0, "class", "icon results-bug-icon svelte-17zhupk");
-    			add_location(span0, file$4, 149, 24, 4540);
-    			attr_dev(span1, "class", "results-bug-count svelte-17zhupk");
-    			add_location(span1, file$4, 150, 24, 4628);
+    			attr_dev(span0, "class", "icon results-bug-icon svelte-1vx7f3v");
+    			add_location(span0, file$4, 154, 24, 4651);
+    			attr_dev(span1, "class", "results-bug-count svelte-1vx7f3v");
+    			add_location(span1, file$4, 155, 24, 4739);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span0, anchor);
@@ -5723,14 +5849,14 @@ var app = (function () {
     		block,
     		id: create_if_block_5.name,
     		type: "if",
-    		source: "(149:20) { #if user.problemResults.data[i].rejectedAttemptCount }",
+    		source: "(154:20) { #if user.problemResults.data[i].rejectedAttemptCount }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (156:20) { #if user.problemResults.data[i].points }
+    // (161:20) { #if user.problemResults.data[i].points }
     function create_if_block_4(ctx) {
     	let span;
     	let icon;
@@ -5741,8 +5867,8 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			create_component(icon.$$.fragment);
-    			attr_dev(span, "class", "icon color-green results-check svelte-17zhupk");
-    			add_location(span, file$4, 156, 24, 4890);
+    			attr_dev(span, "class", "icon color-green results-check svelte-1vx7f3v");
+    			add_location(span, file$4, 161, 24, 5001);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -5769,14 +5895,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(156:20) { #if user.problemResults.data[i].points }",
+    		source: "(161:20) { #if user.problemResults.data[i].points }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (170:20) { :else }
+    // (175:20) { :else }
     function create_else_block$2(ctx) {
     	let span;
 
@@ -5784,8 +5910,8 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "1";
-    			attr_dev(span, "class", "results-total svelte-17zhupk");
-    			add_location(span, file$4, 170, 24, 5477);
+    			attr_dev(span, "class", "results-total svelte-1vx7f3v");
+    			add_location(span, file$4, 175, 24, 5588);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -5800,14 +5926,14 @@ var app = (function () {
     		block,
     		id: create_else_block$2.name,
     		type: "else",
-    		source: "(170:20) { :else }",
+    		source: "(175:20) { :else }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (168:20) { #if problem.points }
+    // (173:20) { #if problem.points }
     function create_if_block_3(ctx) {
     	let span;
     	let t_value = /*problem*/ ctx[10].points + "";
@@ -5817,8 +5943,8 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			t = text(t_value);
-    			attr_dev(span, "class", "results-total svelte-17zhupk");
-    			add_location(span, file$4, 168, 24, 5369);
+    			attr_dev(span, "class", "results-total svelte-1vx7f3v");
+    			add_location(span, file$4, 173, 24, 5480);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -5836,14 +5962,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(168:20) { #if problem.points }",
+    		source: "(173:20) { #if problem.points }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (143:16) { #each contest.data.problems as problem, i }
+    // (148:16) { #each contest.data.problems as problem, i }
     function create_each_block$1(ctx) {
     	let span0;
     	let t0;
@@ -5898,15 +6024,15 @@ var app = (function () {
     			t11 = space();
     			if_block2.c();
     			if_block2_anchor = empty();
-    			attr_dev(span0, "class", "results-index svelte-17zhupk");
-    			add_location(span0, file$4, 144, 20, 4311);
-    			attr_dev(span1, "class", "results-name svelte-17zhupk");
-    			add_location(span1, file$4, 146, 20, 4387);
-    			attr_dev(span2, "class", "results-points svelte-17zhupk");
+    			attr_dev(span0, "class", "results-index svelte-1vx7f3v");
+    			add_location(span0, file$4, 149, 20, 4422);
+    			attr_dev(span1, "class", "results-name svelte-1vx7f3v");
+    			add_location(span1, file$4, 151, 20, 4498);
+    			attr_dev(span2, "class", "results-points svelte-1vx7f3v");
     			toggle_class(span2, "color-green", /*user*/ ctx[0].problemResults.data[/*i*/ ctx[12]].points);
-    			add_location(span2, file$4, 161, 20, 5068);
-    			attr_dev(span3, "class", "results-sep svelte-17zhupk");
-    			add_location(span3, file$4, 165, 20, 5266);
+    			add_location(span2, file$4, 166, 20, 5179);
+    			attr_dev(span3, "class", "results-sep svelte-1vx7f3v");
+    			add_location(span3, file$4, 170, 20, 5377);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span0, anchor);
@@ -6031,7 +6157,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(143:16) { #each contest.data.problems as problem, i }",
+    		source: "(148:16) { #each contest.data.problems as problem, i }",
     		ctx
     	});
 
@@ -6061,7 +6187,7 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	const if_block_creators = [create_if_block_12, create_else_block_2];
+    	const if_block_creators = [create_if_block_14, create_else_block_2];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -6083,7 +6209,7 @@ var app = (function () {
     	};
 
     	handle_promise(promise = preload(/*info*/ ctx[3].avatar), info_1);
-    	const if_block_creators_1 = [create_if_block_11, create_else_block_1$1];
+    	const if_block_creators_1 = [create_if_block_13, create_else_block_1$1];
     	const if_blocks_1 = [];
 
     	function select_block_type_1(ctx, dirty) {
@@ -6114,20 +6240,20 @@ var app = (function () {
     			t4 = space();
     			if (if_block2) if_block2.c();
     			if_block2_anchor = empty();
-    			attr_dev(div0, "class", "icon svelte-17zhupk");
+    			attr_dev(div0, "class", "icon svelte-1vx7f3v");
     			add_location(div0, file$4, 54, 8, 1912);
-    			attr_dev(button0, "class", "header-chevron svelte-17zhupk");
+    			attr_dev(button0, "class", "header-chevron svelte-1vx7f3v");
     			add_location(button0, file$4, 53, 4, 1846);
-    			attr_dev(div1, "class", "header-avatar svelte-17zhupk");
+    			attr_dev(div1, "class", "header-avatar svelte-1vx7f3v");
     			add_location(div1, file$4, 63, 4, 2123);
-    			attr_dev(div2, "class", "header-handle svelte-17zhupk");
+    			attr_dev(div2, "class", "header-handle svelte-1vx7f3v");
     			add_location(div2, file$4, 71, 4, 2361);
-    			attr_dev(div3, "class", "icon svelte-17zhupk");
+    			attr_dev(div3, "class", "icon svelte-1vx7f3v");
     			toggle_class(div3, "spin", /*loading*/ ctx[5]);
     			add_location(div3, file$4, 76, 8, 2500);
-    			attr_dev(button1, "class", "header-close svelte-17zhupk");
+    			attr_dev(button1, "class", "header-close svelte-1vx7f3v");
     			add_location(button1, file$4, 75, 4, 2427);
-    			attr_dev(div4, "class", "header svelte-17zhupk");
+    			attr_dev(div4, "class", "header svelte-1vx7f3v");
     			add_location(div4, file$4, 51, 0, 1820);
     		},
     		l: function claim(nodes) {
@@ -6475,7 +6601,7 @@ var app = (function () {
     			li = element("li");
     			create_component(paneuserscard.$$.fragment);
     			t = space();
-    			attr_dev(li, "class", "svelte-1dvgwox");
+    			attr_dev(li, "class", "svelte-1k5htcd");
     			add_location(li, file$5, 15, 8, 239);
     		},
     		m: function mount(target, anchor) {
@@ -6539,7 +6665,7 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(ul, "class", "scrollable svelte-1dvgwox");
+    			attr_dev(ul, "class", "scrollable svelte-1k5htcd");
     			add_location(ul, file$5, 11, 0, 174);
     		},
     		l: function claim(nodes) {
@@ -12854,9 +12980,9 @@ var app = (function () {
     			svg = svg_element("svg");
     			attr_dev(svg, "id", "graph");
     			attr_dev(svg, "class", "svelte-jsv8so");
-    			add_location(svg, file$6, 51, 4, 1168);
+    			add_location(svg, file$6, 57, 4, 1442);
     			attr_dev(figure, "class", "container svelte-jsv8so");
-    			add_location(figure, file$6, 50, 0, 1128);
+    			add_location(figure, file$6, 56, 0, 1402);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -12909,8 +13035,13 @@ var app = (function () {
     		if ("ResizeObserver" in window) {
     			const observer = new ResizeObserver(entries => {
     					for (const entry of entries) {
-    						$$invalidate(2, width = entry.borderBoxSize[0].inlineSize);
-    						$$invalidate(3, height = entry.borderBoxSize[0].blockSize);
+    						if (entry.borderBoxSize && entry.borderBoxSize.length > 0) {
+    							$$invalidate(2, width = entry.borderBoxSize[0].inlineSize);
+    							$$invalidate(3, height = entry.borderBoxSize[0].blockSize);
+    						} else {
+    							$$invalidate(2, width = entry.contentRect.width);
+    							$$invalidate(3, height = entry.contentRect.height);
+    						}
     					}
 
     					if (graph) graph._draw($derived.handles, $derived.items, width, height);
