@@ -45,12 +45,13 @@ class Graph {
 
         this.svg
             .on('mousemove', this.mouseMove.bind(this))
+            .on('mouseout', this.mouseOut.bind(this))
             .on('click', this.handleClick.bind(this))
 
         this.items = []
         this.handles = []
 
-        this.closes = undefined
+        this.closest = null
         this.quadtree = d3.quadtree()
 
         this.focus = this.svg.append('circle')
@@ -87,6 +88,12 @@ class Graph {
         this.closest = this.quadtree.find(x, y)
         this.drawFocus()
 
+    }
+
+    mouseOut () {
+        this.mouse = null
+        this.closest = null
+        this.drawFocus()
     }
 
     zoomed() {
