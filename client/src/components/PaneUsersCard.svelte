@@ -39,6 +39,14 @@
         return string.split(' ').map(s => s[0].toUpperCase() + s.slice(1)).join(' ')
     }
 
+    function preload(src) {
+        return new Promise(resolve => {
+            const img = new Image()
+            img.onload = resolve
+            img.src = src
+        })
+    }
+
 </script>
 
 <div class="header">
@@ -54,11 +62,15 @@
     </button>
 
     <div class="header-avatar">
-        <img src={info.avatar} alt="Avatar"/>
+        { #await preload(info.avatar) }
+            <img src='no-avatar.jpg' alt="Pending avatar"/>
+        { :then _ }
+            <img src={info.avatar} alt="User avatar"/>
+        { /await }
     </div>
 
     <div class="header-handle">
-        {info.handle}
+        {user.handle}
     </div>
 
     <button class="header-close" on:click={() => handleClose(user)}>
@@ -87,8 +99,10 @@
             <span class='stats-country-name'>{ info.country }</span>
         { /if }
 
-        <span class='icon icon-yellow stats-rank-icon'><Icon icon={faTrophy}/></span>
-        <span class='stats-rank-name'>{ upperCase(info.rank) }</span>
+        { #if info.rank }
+            <span class='icon icon-yellow stats-rank-icon'><Icon icon={faTrophy}/></span>
+            <span class='stats-rank-name'>{ upperCase(info.rank) }</span>
+        { /if }
 
     </div>
 
@@ -186,7 +200,8 @@
     }
 
     .header-avatar {
-        height: 100%;
+        height: 50px;
+        width: 50px;
     }
 
     .header-handle {
@@ -207,8 +222,8 @@
     }
 
     img {
-        height: 50px;
-        width: 50px;
+        height: 100%;
+        width: 100%;
         border-radius: 10px;
         object-fit: cover;
     }

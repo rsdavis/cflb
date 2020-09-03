@@ -13,6 +13,7 @@ const initStore = {
 }
 
 const initUser = {
+    handle: '',
     info: {
         status: 'PENDING',
         data: {}
@@ -87,6 +88,7 @@ function toggleUser (handle) {
 
         // add user
         const newUser = JSON.parse(JSON.stringify(initUser))
+        newUser.handle = handle
         store.users.set(handle, newUser) 
 
         // fetch user info

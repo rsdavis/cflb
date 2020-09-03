@@ -5,7 +5,7 @@
     import PaneUsersCard from './PaneUsersCard.svelte'
     import store from '../store/store.js'
 
-    $: userList = Array.from($store.users.values()).filter(user => user.info.status === 'DONE')
+    $: userList = Array.from($store.users.values())
 
 </script>
 
