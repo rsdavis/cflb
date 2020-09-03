@@ -21,6 +21,11 @@
         }
     }
 
+
+    function toggle (user) {
+        store.toggleUser(user.handle, { rankIndex: user.rankIndex, avatar: user.avatar })
+    }
+
 </script>
 
 <div class="container">
@@ -37,7 +42,7 @@
             <ul class='scrollable'>
                 { #each $SearchStore.queryRequestData as user }
                     <li
-                        on:click={() => store.toggleUser(user.handle)}
+                        on:click={() => toggle(user)}
                         class:selected={$store.users.has(user.handle)}
                     >
                         <span class="block ellipsis">{ format(user) }</span>
@@ -52,7 +57,7 @@
                 <ul class='scrollable'>
                     { #each $SearchStore.queryRequestData as user }
                         <li
-                            on:click={() => store.toggleUser(user.handle)}
+                            on:click={() => toggle(user)}
                             class:selected={$store.users.has(user.handle)}
                         >
                             <span class="block ellipsis">{ format(user) }</span>
@@ -79,7 +84,7 @@
                 { #each res.data as user, index }
 
                     <li 
-                        on:click={() => store.toggleUser(user.handle)} 
+                        on:click={() => toggle(user)} 
                         class:selected={$store.users.has(user.handle)}
                     >
                         <span class="rank">{ index + 1 }</span>

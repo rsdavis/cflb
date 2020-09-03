@@ -62,11 +62,11 @@
     </button>
 
     <div class="header-avatar">
-        { #if info.avatar }
-            { #await preload(info.avatar) }
+        { #if user.aux.avatar }
+            { #await preload(user.aux.avatar) }
                 <img src='no-avatar.jpg' alt="Pending avatar"/>
             { :then _ }
-                <img src={info.avatar} alt="User avatar"/>
+                <img src={user.aux.avatar} alt="User avatar"/>
             { /await }
         { :else }
             <img src='no-avatar.jpg' alt="No avatar"/>
@@ -111,10 +111,13 @@
     </div>
 
     <ul class='stats'>
-        <li>
-            <div class="icon"><Icon icon={faAward}/></div>
-            <div>1</div>
-        </li>
+        
+        { #if user.aux.rankIndex }
+            <li>
+                <div class="icon"><Icon icon={faAward}/></div>
+                <div>{ user.aux.rankIndex }</div>
+            </li>
+        { /if }
 
         { #if info.rating }
         <li>
@@ -130,7 +133,7 @@
             </li>
         { /if }
 
-        { #if info.contribution }
+        { #if info.contribution !== null && info.contribution !== undefined }
             <li>
                 <div class="icon"><Icon icon={faStar}/></div>
                 <div>{ info.contribution }</div>

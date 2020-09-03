@@ -29,11 +29,17 @@ class UserSearch {
 
     }
 
+    addRanks (data) {
+        data = data.map((d, i) => Object.assign(d, { rankIndex: i+1 }))
+    }
+
     createTrie (data) {
 
         console.log(new Date(), 'create trie')
 
         const newTrie = new TrieSearch(['handle', 'firstName', 'lastName'], { min: 1, ignoreCase: true })
+
+        this.addRanks(data)
 
         newTrie.addAll(data)
 
@@ -47,7 +53,7 @@ class UserSearch {
 
         console.log(new Date(), 'query')
 
-        const results = this.trie.get(query).map(({ handle, firstName, lastName }) => ({ handle, firstName, lastName }))
+        const results = this.trie.get(query).map(({ handle, firstName, lastName, avatar, rankIndex }) => ({ handle, firstName, lastName, avatar, rankIndex }))
 
         return results
 

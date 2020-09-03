@@ -18,6 +18,10 @@ const initUser = {
         status: 'PENDING',
         data: {}
     },
+    aux: {
+        rankIndex: null,
+        avatar: null
+    },
     ratings: {
         status: 'PENDING',
         data: []
@@ -75,7 +79,7 @@ function addUserRatings (handle, status, data) {
 }
 
 
-function toggleUser (handle) {
+function toggleUser (handle, aux) {
 
     update(store => {
 
@@ -89,6 +93,7 @@ function toggleUser (handle) {
         // add user
         const newUser = JSON.parse(JSON.stringify(initUser))
         newUser.handle = handle
+        newUser.aux = aux
         store.users.set(handle, newUser) 
 
         // fetch user info
