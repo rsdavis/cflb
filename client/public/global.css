@@ -39,12 +39,16 @@ img {
     display: block;
 }
 
-.scrollbar::-webkit-scrollbar {
+.scrollable {
+    overflow-y: auto;
+}
+
+.scrollable::-webkit-scrollbar {
     background-color: transparent;
     width: 15px;
 }
 
-.scrollbar::-webkit-scrollbar-thumb {
+.scrollable::-webkit-scrollbar-thumb {
     background-color: rgb(200,200,200);
     border: 3px solid rgb(45,45,45);
     border-radius: 10px;

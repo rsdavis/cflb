@@ -9,7 +9,7 @@
 
 </script>
 
-<ul class='scrollbar'>
+<ul class='scrollable'>
 
     { #each userList as user }
 

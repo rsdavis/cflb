@@ -8,10 +8,8 @@
     import store from '../store/store.js'
     import SearchStore from '../store/SearchStore.js'
 
-    let query
-
-    function handleInput () {
-        SearchStore.updateQuery(query)
+    function handleInput (event) {
+        SearchStore.updateQuery(event.target.value)
     }
 
     function format (user) {
@@ -29,14 +27,14 @@
 
     <div class='input-container'>
         <Icon class='input-icon' icon={faSearch} />
-        <input type="text"  bind:value={query} on:input={handleInput}>
+        <input type="text"  value={$SearchStore.query} on:input={handleInput}>
     </div>
 
     { #if $SearchStore.query.length }
 
         { #await $SearchStore.queryRequestPromise }
 
-            <ul>
+            <ul class='scrollable'>
                 { #each $SearchStore.queryRequestData as user }
                     <li>{ format(user) }</li>
                 { /each }
@@ -45,7 +43,7 @@
         { :then res }
 
             { #if $SearchStore.queryRequestData.length }
-                <ul>
+                <ul class='scrollable'>
                     { #each $SearchStore.queryRequestData as user }
                         <li>{ format(user) }</li>
                     { /each }
@@ -64,7 +62,7 @@
 
         { :then res }
 
-            <ul class='search scrollbar'>
+            <ul class='scrollable'>
 
                 { #each res.data as user, index }
 
@@ -124,10 +122,6 @@
 
     input:focus {
         border: 2px solid rgb(160,185,210);
-    }
-
-    ul.search {
-        overflow-y: scroll;
     }
 
     li {

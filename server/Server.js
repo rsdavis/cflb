@@ -64,7 +64,7 @@ class Server {
     }
 
     async query (ctx) {
-        ctx.body = this.userSearch.queryTrie(ctx.params.query).filter((d,i) => i<20)
+        ctx.body = this.userSearch.queryTrie(ctx.params.query).filter((d,i) => i<50)
     }
 
 }
