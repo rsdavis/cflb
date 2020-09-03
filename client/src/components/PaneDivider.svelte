@@ -22,18 +22,22 @@
 <style>
 
     .divider {
+        height: 100%;
         min-width: 20px;
         border-left: 1px solid #ccc;
         border-right: 1px solid #ccc;
         cursor: pointer;
         width: 20px;
-        display: flex;
-        justify-content: center;
-        align-content: center;
+        position: relative;
     }
 
     .icon {
-        width: 60%;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        height: 1em;
+        width: 1em;
         color: rgb(200,200,200);
     }
 

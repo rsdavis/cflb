@@ -36,20 +36,32 @@
 
             <ul class='scrollable'>
                 { #each $SearchStore.queryRequestData as user }
-                    <li>{ format(user) }</li>
+                    <li
+                        on:click={() => store.toggleUser(user.handle)}
+                        class:selected={$store.users.has(user.handle)}
+                    >
+                        <span class="block ellipsis">{ format(user) }</span>
+                     </li>
                 { /each }
             </ul>
 
         { :then res }
 
             { #if $SearchStore.queryRequestData.length }
+
                 <ul class='scrollable'>
                     { #each $SearchStore.queryRequestData as user }
-                        <li>{ format(user) }</li>
+                        <li
+                            on:click={() => store.toggleUser(user.handle)}
+                            class:selected={$store.users.has(user.handle)}
+                        >
+                            <span class="block ellipsis">{ format(user) }</span>
+                        </li>
                     { /each }
                 </ul>
+
             { :else }
-                No results found
+                <div style='padding: 0.5em;'>No results found</div>
             {/if}
 
         { /await }
@@ -71,7 +83,7 @@
                         class:selected={$store.users.has(user.handle)}
                     >
                         <span class="rank">{ index + 1 }</span>
-                        <span class="handle">{ user.handle }</span>
+                        <span class="handle ellipsis">{ user.handle }</span>
                         <span class="rating">{ user.rating }</span>
                     </li>
 
@@ -95,8 +107,8 @@
     }
 
     .input-container {
-        padding: 0.5em;
         position: relative;
+        padding: 0.5em;
     }
 
     .input-container :global(.input-icon) {
@@ -150,10 +162,19 @@
     }
 
     .handle {
-        overflow: hidden;
-        text-overflow: ellipsis;
         flex-grow: 1;
         max-width: 70%;
+    }
+
+    .block {
+        display: inline-block;
+        width: calc(100%);
+    }
+
+    .ellipsis {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .rating {

@@ -873,9 +873,9 @@ var app = (function () {
     			div1 = element("div");
     			div0 = element("div");
     			if_block.c();
-    			attr_dev(div0, "class", "icon svelte-gn6e0y");
+    			attr_dev(div0, "class", "icon svelte-k0jrdm");
     			add_location(div0, file$1, 12, 4, 311);
-    			attr_dev(div1, "class", "divider svelte-gn6e0y");
+    			attr_dev(div1, "class", "divider svelte-k0jrdm");
     			add_location(div1, file$1, 11, 0, 254);
     		},
     		l: function claim(nodes) {
@@ -3342,24 +3342,24 @@ var app = (function () {
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[4] = list[i];
-    	child_ctx[11] = i;
+    	child_ctx[6] = list[i];
+    	child_ctx[13] = i;
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[4] = list[i];
+    	child_ctx[6] = list[i];
     	return child_ctx;
     }
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[4] = list[i];
+    	child_ctx[6] = list[i];
     	return child_ctx;
     }
 
-    // (57:4) { :else }
+    // (69:4) { :else }
     function create_else_block_1(ctx) {
     	let await_block_anchor;
     	let promise;
@@ -3371,7 +3371,7 @@ var app = (function () {
     		pending: create_pending_block_1,
     		then: create_then_block_1,
     		catch: create_catch_block_1,
-    		value: 7
+    		value: 9
     	};
 
     	handle_promise(promise = /*$SearchStore*/ ctx[0].topRequestPromise, info);
@@ -3393,7 +3393,7 @@ var app = (function () {
 
     			if (dirty & /*$SearchStore*/ 1 && promise !== (promise = /*$SearchStore*/ ctx[0].topRequestPromise) && handle_promise(promise, info)) ; else {
     				const child_ctx = ctx.slice();
-    				child_ctx[7] = info.resolved;
+    				child_ctx[9] = info.resolved;
     				info.block.p(child_ctx, dirty);
     			}
     		},
@@ -3409,7 +3409,7 @@ var app = (function () {
     		block,
     		id: create_else_block_1.name,
     		type: "else",
-    		source: "(57:4) { :else }",
+    		source: "(69:4) { :else }",
     		ctx
     	});
 
@@ -3428,7 +3428,7 @@ var app = (function () {
     		pending: create_pending_block,
     		then: create_then_block,
     		catch: create_catch_block,
-    		value: 7
+    		value: 9
     	};
 
     	handle_promise(promise = /*$SearchStore*/ ctx[0].queryRequestPromise, info);
@@ -3450,7 +3450,7 @@ var app = (function () {
 
     			if (dirty & /*$SearchStore*/ 1 && promise !== (promise = /*$SearchStore*/ ctx[0].queryRequestPromise) && handle_promise(promise, info)) ; else {
     				const child_ctx = ctx.slice();
-    				child_ctx[7] = info.resolved;
+    				child_ctx[9] = info.resolved;
     				info.block.p(child_ctx, dirty);
     			}
     		},
@@ -3488,10 +3488,10 @@ var app = (function () {
     	return block;
     }
 
-    // (63:8) { :then res }
+    // (75:8) { :then res }
     function create_then_block_1(ctx) {
     	let ul;
-    	let each_value_2 = /*res*/ ctx[7].data;
+    	let each_value_2 = /*res*/ ctx[9].data;
     	validate_each_argument(each_value_2);
     	let each_blocks = [];
 
@@ -3508,7 +3508,7 @@ var app = (function () {
     			}
 
     			attr_dev(ul, "class", "scrollable");
-    			add_location(ul, file$3, 64, 12, 1560);
+    			add_location(ul, file$3, 76, 12, 2108);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, ul, anchor);
@@ -3519,7 +3519,7 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			if (dirty & /*$store, $SearchStore, store*/ 3) {
-    				each_value_2 = /*res*/ ctx[7].data;
+    				each_value_2 = /*res*/ ctx[9].data;
     				validate_each_argument(each_value_2);
     				let i;
 
@@ -3552,33 +3552,33 @@ var app = (function () {
     		block,
     		id: create_then_block_1.name,
     		type: "then",
-    		source: "(63:8) { :then res }",
+    		source: "(75:8) { :then res }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (67:16) { #each res.data as user, index }
+    // (79:16) { #each res.data as user, index }
     function create_each_block_2(ctx) {
     	let li;
     	let span0;
-    	let t0_value = /*index*/ ctx[11] + 1 + "";
+    	let t0_value = /*index*/ ctx[13] + 1 + "";
     	let t0;
     	let t1;
     	let span1;
-    	let t2_value = /*user*/ ctx[4].handle + "";
+    	let t2_value = /*user*/ ctx[6].handle + "";
     	let t2;
     	let t3;
     	let span2;
-    	let t4_value = /*user*/ ctx[4].rating + "";
+    	let t4_value = /*user*/ ctx[6].rating + "";
     	let t4;
     	let t5;
     	let mounted;
     	let dispose;
 
-    	function click_handler(...args) {
-    		return /*click_handler*/ ctx[3](/*user*/ ctx[4], ...args);
+    	function click_handler_2(...args) {
+    		return /*click_handler_2*/ ctx[5](/*user*/ ctx[6], ...args);
     	}
 
     	const block = {
@@ -3593,15 +3593,15 @@ var app = (function () {
     			span2 = element("span");
     			t4 = text(t4_value);
     			t5 = space();
-    			attr_dev(span0, "class", "rank svelte-1i9bg13");
-    			add_location(span0, file$3, 72, 24, 1850);
-    			attr_dev(span1, "class", "handle svelte-1i9bg13");
-    			add_location(span1, file$3, 73, 24, 1914);
-    			attr_dev(span2, "class", "rating svelte-1i9bg13");
-    			add_location(span2, file$3, 74, 24, 1982);
-    			attr_dev(li, "class", "svelte-1i9bg13");
-    			toggle_class(li, "selected", /*$store*/ ctx[1].users.has(/*user*/ ctx[4].handle));
-    			add_location(li, file$3, 68, 20, 1656);
+    			attr_dev(span0, "class", "rank svelte-183s38");
+    			add_location(span0, file$3, 84, 24, 2398);
+    			attr_dev(span1, "class", "handle ellipsis svelte-183s38");
+    			add_location(span1, file$3, 85, 24, 2462);
+    			attr_dev(span2, "class", "rating svelte-183s38");
+    			add_location(span2, file$3, 86, 24, 2539);
+    			attr_dev(li, "class", "svelte-183s38");
+    			toggle_class(li, "selected", /*$store*/ ctx[1].users.has(/*user*/ ctx[6].handle));
+    			add_location(li, file$3, 80, 20, 2204);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -3616,17 +3616,17 @@ var app = (function () {
     			append_dev(li, t5);
 
     			if (!mounted) {
-    				dispose = listen_dev(li, "click", click_handler, false, false, false);
+    				dispose = listen_dev(li, "click", click_handler_2, false, false, false);
     				mounted = true;
     			}
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty & /*$SearchStore*/ 1 && t2_value !== (t2_value = /*user*/ ctx[4].handle + "")) set_data_dev(t2, t2_value);
-    			if (dirty & /*$SearchStore*/ 1 && t4_value !== (t4_value = /*user*/ ctx[4].rating + "")) set_data_dev(t4, t4_value);
+    			if (dirty & /*$SearchStore*/ 1 && t2_value !== (t2_value = /*user*/ ctx[6].handle + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*$SearchStore*/ 1 && t4_value !== (t4_value = /*user*/ ctx[6].rating + "")) set_data_dev(t4, t4_value);
 
     			if (dirty & /*$store, $SearchStore*/ 3) {
-    				toggle_class(li, "selected", /*$store*/ ctx[1].users.has(/*user*/ ctx[4].handle));
+    				toggle_class(li, "selected", /*$store*/ ctx[1].users.has(/*user*/ ctx[6].handle));
     			}
     		},
     		d: function destroy(detaching) {
@@ -3640,14 +3640,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(67:16) { #each res.data as user, index }",
+    		source: "(79:16) { #each res.data as user, index }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (59:49)               ...          { :then res }
+    // (71:49)               ...          { :then res }
     function create_pending_block_1(ctx) {
     	let t;
 
@@ -3668,7 +3668,7 @@ var app = (function () {
     		block,
     		id: create_pending_block_1.name,
     		type: "pending",
-    		source: "(59:49)               ...          { :then res }",
+    		source: "(71:49)               ...          { :then res }",
     		ctx
     	});
 
@@ -3690,7 +3690,7 @@ var app = (function () {
     	return block;
     }
 
-    // (43:8) { :then res }
+    // (48:8) { :then res }
     function create_then_block(ctx) {
     	let if_block_anchor;
 
@@ -3734,27 +3734,30 @@ var app = (function () {
     		block,
     		id: create_then_block.name,
     		type: "then",
-    		source: "(43:8) { :then res }",
+    		source: "(48:8) { :then res }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (51:12) { :else }
+    // (63:12) { :else }
     function create_else_block$1(ctx) {
-    	let t;
+    	let div;
 
     	const block = {
     		c: function create() {
-    			t = text("No results found");
+    			div = element("div");
+    			div.textContent = "No results found";
+    			set_style(div, "padding", "0.5em");
+    			add_location(div, file$3, 63, 16, 1899);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, t, anchor);
+    			insert_dev(target, div, anchor);
     		},
     		p: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(t);
+    			if (detaching) detach_dev(div);
     		}
     	};
 
@@ -3762,14 +3765,14 @@ var app = (function () {
     		block,
     		id: create_else_block$1.name,
     		type: "else",
-    		source: "(51:12) { :else }",
+    		source: "(63:12) { :else }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (45:12) { #if $SearchStore.queryRequestData.length }
+    // (50:12) { #if $SearchStore.queryRequestData.length }
     function create_if_block_1$1(ctx) {
     	let ul;
     	let each_value_1 = /*$SearchStore*/ ctx[0].queryRequestData;
@@ -3789,7 +3792,7 @@ var app = (function () {
     			}
 
     			attr_dev(ul, "class", "scrollable");
-    			add_location(ul, file$3, 45, 16, 1154);
+    			add_location(ul, file$3, 51, 16, 1401);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, ul, anchor);
@@ -3799,7 +3802,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*format, $SearchStore*/ 1) {
+    			if (dirty & /*$store, $SearchStore, store, format*/ 3) {
     				each_value_1 = /*$SearchStore*/ ctx[0].queryRequestData;
     				validate_each_argument(each_value_1);
     				let i;
@@ -3833,35 +3836,62 @@ var app = (function () {
     		block,
     		id: create_if_block_1$1.name,
     		type: "if",
-    		source: "(45:12) { #if $SearchStore.queryRequestData.length }",
+    		source: "(50:12) { #if $SearchStore.queryRequestData.length }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (47:20) { #each $SearchStore.queryRequestData as user }
+    // (53:20) { #each $SearchStore.queryRequestData as user }
     function create_each_block_1(ctx) {
     	let li;
-    	let t_value = format(/*user*/ ctx[4]) + "";
-    	let t;
+    	let span;
+    	let t0_value = format(/*user*/ ctx[6]) + "";
+    	let t0;
+    	let t1;
+    	let mounted;
+    	let dispose;
+
+    	function click_handler_1(...args) {
+    		return /*click_handler_1*/ ctx[4](/*user*/ ctx[6], ...args);
+    	}
 
     	const block = {
     		c: function create() {
     			li = element("li");
-    			t = text(t_value);
-    			attr_dev(li, "class", "svelte-1i9bg13");
-    			add_location(li, file$3, 47, 24, 1270);
+    			span = element("span");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			attr_dev(span, "class", "block ellipsis svelte-183s38");
+    			add_location(span, file$3, 57, 28, 1725);
+    			attr_dev(li, "class", "svelte-183s38");
+    			toggle_class(li, "selected", /*$store*/ ctx[1].users.has(/*user*/ ctx[6].handle));
+    			add_location(li, file$3, 53, 24, 1517);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
-    			append_dev(li, t);
+    			append_dev(li, span);
+    			append_dev(span, t0);
+    			append_dev(li, t1);
+
+    			if (!mounted) {
+    				dispose = listen_dev(li, "click", click_handler_1, false, false, false);
+    				mounted = true;
+    			}
     		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*$SearchStore*/ 1 && t_value !== (t_value = format(/*user*/ ctx[4]) + "")) set_data_dev(t, t_value);
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+    			if (dirty & /*$SearchStore*/ 1 && t0_value !== (t0_value = format(/*user*/ ctx[6]) + "")) set_data_dev(t0, t0_value);
+
+    			if (dirty & /*$store, $SearchStore*/ 3) {
+    				toggle_class(li, "selected", /*$store*/ ctx[1].users.has(/*user*/ ctx[6].handle));
+    			}
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(li);
+    			mounted = false;
+    			dispose();
     		}
     	};
 
@@ -3869,7 +3899,7 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(47:20) { #each $SearchStore.queryRequestData as user }",
+    		source: "(53:20) { #each $SearchStore.queryRequestData as user }",
     		ctx
     	});
 
@@ -3906,7 +3936,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*format, $SearchStore*/ 1) {
+    			if (dirty & /*$store, $SearchStore, store, format*/ 3) {
     				each_value = /*$SearchStore*/ ctx[0].queryRequestData;
     				validate_each_argument(each_value);
     				let i;
@@ -3950,25 +3980,52 @@ var app = (function () {
     // (38:16) { #each $SearchStore.queryRequestData as user }
     function create_each_block(ctx) {
     	let li;
-    	let t_value = format(/*user*/ ctx[4]) + "";
-    	let t;
+    	let span;
+    	let t0_value = format(/*user*/ ctx[6]) + "";
+    	let t0;
+    	let t1;
+    	let mounted;
+    	let dispose;
+
+    	function click_handler(...args) {
+    		return /*click_handler*/ ctx[3](/*user*/ ctx[6], ...args);
+    	}
 
     	const block = {
     		c: function create() {
     			li = element("li");
-    			t = text(t_value);
-    			attr_dev(li, "class", "svelte-1i9bg13");
+    			span = element("span");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			attr_dev(span, "class", "block ellipsis svelte-183s38");
+    			add_location(span, file$3, 42, 24, 1179);
+    			attr_dev(li, "class", "svelte-183s38");
+    			toggle_class(li, "selected", /*$store*/ ctx[1].users.has(/*user*/ ctx[6].handle));
     			add_location(li, file$3, 38, 20, 987);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
-    			append_dev(li, t);
+    			append_dev(li, span);
+    			append_dev(span, t0);
+    			append_dev(li, t1);
+
+    			if (!mounted) {
+    				dispose = listen_dev(li, "click", click_handler, false, false, false);
+    				mounted = true;
+    			}
     		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*$SearchStore*/ 1 && t_value !== (t_value = format(/*user*/ ctx[4]) + "")) set_data_dev(t, t_value);
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+    			if (dirty & /*$SearchStore*/ 1 && t0_value !== (t0_value = format(/*user*/ ctx[6]) + "")) set_data_dev(t0, t0_value);
+
+    			if (dirty & /*$store, $SearchStore*/ 3) {
+    				toggle_class(li, "selected", /*$store*/ ctx[1].users.has(/*user*/ ctx[6].handle));
+    			}
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(li);
+    			mounted = false;
+    			dispose();
     		}
     	};
 
@@ -4019,11 +4076,11 @@ var app = (function () {
     			if_block.c();
     			attr_dev(input, "type", "text");
     			input.value = input_value_value = /*$SearchStore*/ ctx[0].query;
-    			attr_dev(input, "class", "svelte-1i9bg13");
+    			attr_dev(input, "class", "svelte-183s38");
     			add_location(input, file$3, 29, 8, 692);
-    			attr_dev(div0, "class", "input-container svelte-1i9bg13");
+    			attr_dev(div0, "class", "input-container svelte-183s38");
     			add_location(div0, file$3, 27, 4, 602);
-    			attr_dev(div1, "class", "container svelte-1i9bg13");
+    			attr_dev(div1, "class", "container svelte-183s38");
     			add_location(div1, file$3, 25, 0, 573);
     		},
     		l: function claim(nodes) {
@@ -4119,6 +4176,8 @@ var app = (function () {
     	let { $$slots = {}, $$scope } = $$props;
     	validate_slots("PaneSearch", $$slots, []);
     	const click_handler = user => store.toggleUser(user.handle);
+    	const click_handler_1 = user => store.toggleUser(user.handle);
+    	const click_handler_2 = user => store.toggleUser(user.handle);
 
     	$$self.$capture_state = () => ({
     		axios: axios$1,
@@ -4132,7 +4191,14 @@ var app = (function () {
     		$store
     	});
 
-    	return [$SearchStore, $store, handleInput, click_handler];
+    	return [
+    		$SearchStore,
+    		$store,
+    		handleInput,
+    		click_handler,
+    		click_handler_1,
+    		click_handler_2
+    	];
     }
 
     class PaneSearch extends SvelteComponentDev {
