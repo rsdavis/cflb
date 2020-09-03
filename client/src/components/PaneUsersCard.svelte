@@ -62,11 +62,15 @@
     </button>
 
     <div class="header-avatar">
-        { #await preload(info.avatar) }
-            <img src='no-avatar.jpg' alt="Pending avatar"/>
-        { :then _ }
-            <img src={info.avatar} alt="User avatar"/>
-        { /await }
+        { #if info.avatar }
+            { #await preload(info.avatar) }
+                <img src='no-avatar.jpg' alt="Pending avatar"/>
+            { :then _ }
+                <img src={info.avatar} alt="User avatar"/>
+            { /await }
+        { :else }
+            <img src='no-avatar.jpg' alt="No avatar"/>
+        { /if }
     </div>
 
     <div class="header-handle">
