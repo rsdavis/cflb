@@ -226,7 +226,7 @@ class Graph {
             .attr('fill', 'none')
             //.attr('stroke', d3.rgb(245,255,174))
             .attr('stroke', d => this.colorScale(d[0].selectionIndex % 5))
-            .attr('stroke-width', 1)
+            .attr('stroke-width', 2)
             .attr('d', line)
 
         paths

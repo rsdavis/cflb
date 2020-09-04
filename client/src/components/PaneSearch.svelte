@@ -30,6 +30,8 @@
 
 <div class="container">
 
+    <h1>CodeForcesGuru</h1>
+
     <div class='input-container'>
         <Icon class='input-icon' icon={faSearch} />
         <input type="text"  value={$SearchStore.query} on:input={handleInput}>
@@ -111,9 +113,14 @@
         flex-direction: column;
     }
 
+    h1 {
+        margin: 0.5em auto 0 auto;
+        font-family: inherit;
+    }
+
     .input-container {
         position: relative;
-        padding: 0.5em;
+        margin: 0.5em;
     }
 
     .input-container :global(.input-icon) {
