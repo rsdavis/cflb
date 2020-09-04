@@ -4,6 +4,8 @@ import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 
 const initStore = {
+
+    selectionIndex: 0,
     users: new Map(),
     contest: {
         id: null,
@@ -14,6 +16,7 @@ const initStore = {
 
 const initUser = {
     handle: '',
+    selectionIndex: 0,
     info: {
         status: 'PENDING',
         data: {}
@@ -94,6 +97,8 @@ function toggleUser (handle, aux) {
         const newUser = JSON.parse(JSON.stringify(initUser))
         newUser.handle = handle
         newUser.aux = aux
+        newUser.selectionIndex = store.selectionIndex
+        store.selectionIndex += 1
         store.users.set(handle, newUser) 
 
         // fetch user info

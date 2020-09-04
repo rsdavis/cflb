@@ -49,7 +49,6 @@ class Graph {
             .on('click', this.handleClick.bind(this))
 
         this.items = []
-        this.handles = []
 
         this.closest = null
         this.quadtree = d3.quadtree()
@@ -65,6 +64,8 @@ class Graph {
         this.mouse = [0,0]
 
         this.contestId = null
+
+        this.colorScale = d3.scaleLinear().domain([0,5]).range([d3.rgb(245,255,174), d3.rgb(100, 160, 250)])
 
     }
 
@@ -163,7 +164,8 @@ class Graph {
             .attr('cx', d => this.xt(d.t))
             .attr('cy', d => this.yt(d.newRating))
             .attr('r', 3)
-            .attr('fill', d3.rgb(245, 245, 174))
+            //.attr('fill', d3.rgb(245, 245, 174))
+            .attr('fill', d => this.colorScale(d.selectionIndex % 5))
 
         nodes
             .attr('cx', d => this.xt(d.t))
@@ -188,16 +190,42 @@ class Graph {
 
     }
 
+    group (data, key) {
+
+        const m = new Map()
+
+        for (const item of data) {
+
+            const k = item[key]
+            const g = m.get(k)
+
+            if (k && g) {
+                g.push(item)
+            }
+            else if (k) {
+                m.set(k, [item])
+            }
+
+        }
+
+        return m
+
+    }
+
     drawPaths () {
 
+        const groups = this.group(this.items, 'handle')
+        const handles = Array.from(groups.keys())
+
         const line = d3.line().x(d => this.xt(d.t)).y(d => this.yt(d.newRating))
-        const paths = this.svg.select('#paths').selectAll('path').data(this.handles, h => h)
+        const paths = this.svg.select('#paths').selectAll('path').data(handles, h => h)
 
         paths.enter()
             .append('path')
-            .datum(h => this.items.filter(item => item.handle === h))
+            .datum(h => groups.get(h))
             .attr('fill', 'none')
-            .attr('stroke', d3.rgb(245,255,174))
+            //.attr('stroke', d3.rgb(245,255,174))
+            .attr('stroke', d => this.colorScale(d[0].selectionIndex % 5))
             .attr('stroke-width', 1)
             .attr('d', line)
 
@@ -233,14 +261,13 @@ class Graph {
 
     }
 
-    _draw (handles, items, width, height, contestId) {
+    _draw (items, width, height, contestId) {
 
         this.width = width
         this.height = height
         this.contestId = contestId
 
         this.items = items
-        this.handles = handles
 
         this.quadtree = d3.quadtree()
             .x(d => this.xt(d.t))

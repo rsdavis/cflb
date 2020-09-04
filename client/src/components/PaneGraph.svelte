@@ -11,7 +11,7 @@
     let width = 0
     let height = 0
 
-    $: graph && graph._draw($derived.handles, $derived.items, width, height, $store.contest.id)
+    $: graph && graph._draw($derived.items, width, height, $store.contest.id)
 
     function init (node) {
 
@@ -32,7 +32,7 @@
                     }
                 }
 
-                if (graph) graph._draw($derived.handles, $derived.items, width, height)
+                if (graph) graph._draw($derived.items, width, height)
 
             })
 
@@ -43,7 +43,7 @@
 
             console.warn('ResizeObserver not available')
             const r = node.getBoundingClientRect()
-            if (graph) graph._draw($derived.handles, $derived.items, r.width, r.height)
+            if (graph) graph._draw($derived.items, r.width, r.height)
 
         }
 

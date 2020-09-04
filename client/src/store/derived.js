@@ -5,17 +5,16 @@ import store from './store.js'
 
 const { subscribe } = derived(store, $store => {
 
-    const handles = []
     let items = []
 
-    $store.users.forEach((user, handle) => {
+    $store.users.forEach(user => {
         if (user.ratings.status === 'DONE') {
-            handles.push(handle)
+            user.ratings.data.map(d => Object.assign(d, { selectionIndex: user.selectionIndex }))
             items = items.concat(user.ratings.data)
         }
     })
 
-    return { handles, items }
+    return { items }
 
 })
 
