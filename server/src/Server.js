@@ -45,7 +45,7 @@ class Server {
         console.log(`${ctx.method} ${ctx.url} ${rt}`)
     }
 
-    start (port = 3000) {
+    start (port = 80) {
 
         const promise = new Promise((resolve, reject) => {
             this.server = http.createServer(this.app.callback()).listen(port, resolve)

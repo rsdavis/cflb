@@ -16,7 +16,7 @@ function initialRequest () {
 
     update(store => {
 
-        store.topRequestPromise = axios.get('http://localhost:3000/api/top')
+        store.topRequestPromise = axios.get(process.env.API_URL + '/api/top')
         return store
 
     })
@@ -43,7 +43,7 @@ function updateQuery (query) {
 
         if (query.length) {
 
-            store.queryRequestPromise = axios.get(`http://localhost:3000/api/query/${query}`)
+            store.queryRequestPromise = axios.get(process.env.API_URL + `/api/query/${query}`)
             store.queryRequestPromise.then(res => saveQueryData(query, res.data))
 
         }

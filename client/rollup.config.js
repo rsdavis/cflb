@@ -43,7 +43,8 @@ export default {
         json(),
 
         replace({
-			'process.env.NODE_ENV': JSON.stringify('production')
+            'process.env.NODE_ENV': JSON.stringify('production'),
+            'process.env.API_URL': JSON.stringify(production ? 'https://codeforces.guru' : 'http://localhost:80')
         }),
 
 		svelte({

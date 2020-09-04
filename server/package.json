@@ -4,8 +4,8 @@
   "description": "",
   "main": "Server.js",
   "scripts": {
-    "dev": "npx nodemon app.js",
-    "start": "node app.js"
+    "dev": "npx nodemon ./src/App.js",
+    "start": "node ./src/App.js"
   },
   "author": "",
   "license": "ISC",
