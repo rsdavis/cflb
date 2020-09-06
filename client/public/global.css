@@ -52,3 +52,12 @@ img {
     border: 3px solid rgb(45,45,45);
     border-radius: 10px;
 }
+
+@keyframes spin {
+    from { transform: rotate(0); }
+    to { transform: rotate(360deg);}
+}
+
+.spin {
+    animation: spin 1.5s linear infinite;
+}

@@ -348,17 +348,4 @@
         grid-column: 8;
     }
 
-    .bug-icon {
-        color: red;
-    }
-
-    @keyframes spin {
-        from { transform: rotate(0); }
-        to { transform: rotate(360deg);}
-    }
-
-    .spin {
-        animation: spin 1.5s linear infinite;
-    }
-
 </style>

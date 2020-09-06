@@ -2,11 +2,12 @@
 
 import { writable } from 'svelte/store'
 import axios from 'axios'
+import debounce from 'underscore/modules/debounce.js'
 
 const initStore = {
     topRequestPromise: null,
     queryRequestPromise: null,
-    queryRequestData: [],
+    queryRequestData: null,
     query: ''
 }
 
@@ -36,16 +37,32 @@ function saveQueryData (query, data) {
     })
 }
 
+function makeCall (query) {
+
+    update(store => {
+
+        store.queryRequestPromise = axios.get(process.env.API_URL + `/api/query/${query}`)
+        store.queryRequestPromise.then(res => saveQueryData(query, res.data))
+
+        return store
+
+    })
+
+}
+
+const makeCallDebounced = debounce(makeCall, 500)
+
 function updateQuery (query) {
 
     update(store => {
         store.query = query
 
         if (query.length) {
-
-            store.queryRequestPromise = axios.get(process.env.API_URL + `/api/query/${query}`)
-            store.queryRequestPromise.then(res => saveQueryData(query, res.data))
-
+            makeCallDebounced(query)
+        }
+        else {
+            store.queryRequestData = null
+            makeCallDebounced.cancel()
         }
 
         return store

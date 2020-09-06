@@ -4,6 +4,7 @@
     import axios from 'axios'
     import Icon from 'fa-svelte'
     import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
+    import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner'
 
     import store from '../store/store.js'
     import SearchStore from '../store/SearchStore.js'
@@ -21,7 +22,6 @@
         }
     }
 
-
     function toggle (user) {
         store.toggleUser(user.handle, { rankIndex: user.rankIndex, avatar: user.avatar })
     }
@@ -34,12 +34,22 @@
 
     <div class='input-container'>
         <Icon class='input-icon' icon={faSearch} />
-        <input type="text"  value={$SearchStore.query} on:input={handleInput}>
-    </div>
-
-    { #if $SearchStore.query.length }
 
         { #await $SearchStore.queryRequestPromise }
+            <Icon class='loading-icon spinshift' icon={faSpinner} />
+        { /await }
+
+        { #await $SearchStore.topRequestPromise }
+            <Icon class='loading-icon spinshift' icon={faSpinner} />
+        { /await }
+
+        <input type="text"  value={$SearchStore.query} on:input={handleInput}>
+
+    </div>
+
+    { #if $SearchStore.queryRequestData }
+
+        { #if $SearchStore.queryRequestData.length }
 
             <ul class='scrollable'>
                 { #each $SearchStore.queryRequestData as user }
@@ -48,38 +58,19 @@
                         class:selected={$store.users.has(user.handle)}
                     >
                         <span class="block ellipsis">{ format(user) }</span>
-                     </li>
+                        </li>
                 { /each }
             </ul>
 
-        { :then res }
+        { :else }
 
-            { #if $SearchStore.queryRequestData.length }
+            <div style='padding: 0.5em;'>No results found</div>
 
-                <ul class='scrollable'>
-                    { #each $SearchStore.queryRequestData as user }
-                        <li
-                            on:click={() => toggle(user)}
-                            class:selected={$store.users.has(user.handle)}
-                        >
-                            <span class="block ellipsis">{ format(user) }</span>
-                        </li>
-                    { /each }
-                </ul>
-
-            { :else }
-                <div style='padding: 0.5em;'>No results found</div>
-            {/if}
-
-        { /await }
+        { /if }
 
     { :else }
 
-        { #await $SearchStore.topRequestPromise }
-
-            ...
-
-        { :then res }
+        { #await $SearchStore.topRequestPromise then res }
 
             <ul class='scrollable'>
 
@@ -99,9 +90,8 @@
             </ul>
 
         { /await }
-
+    
     { /if }
-
 
 </div>
 
@@ -129,6 +119,22 @@
         top: 50%;
         transform: translateY(-50%);
         color: rgb(70, 70, 70);
+    }
+
+    .input-container :global(.loading-icon) {
+        position: absolute;
+        right: 1em;
+        top: 50%;
+        color: rgb(70, 70, 70);
+    }
+
+    @keyframes spinshift {
+        from { transform: translateY(-50%) rotate(0); }
+        to { transform: translateY(-50%) rotate(360deg);}
+    }
+
+    .input-container :global(.spinshift) {
+        animation: spinshift 1.5s linear infinite;
     }
 
     input {
