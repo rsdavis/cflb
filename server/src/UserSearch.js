@@ -23,7 +23,19 @@ class UserSearch {
         const url       = 'https://codeforces.com/api/user.ratedList'
         const timeout   = 60000*2
 
-        const res = await axios({ method, url, timeout })
+        const f = async () => {
+            try {
+                console.log(new Date(), 'make call to codeforces')
+                return await axios({ method, url, timeout })
+            }
+            catch (err) {
+                console.warn(new Date(), 'Error')
+                console.warn(new Date(), err.message)
+                return f()
+            }
+        }
+
+        const res = await f()
 
         return res.data.result
 
@@ -89,7 +101,7 @@ async function LoadUserSearchFromJSON (fileName) {
 
 async function LoadUserSearchFromAPI () {
 
-    const userSearch = new UserSearch(dataSource)
+    const userSearch = new UserSearch()
     const data = await userSearch.fetchUserRatedList()
     userSearch.createTrie(data)
     return userSearch

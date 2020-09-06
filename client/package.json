@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -w -c",
-    "start": "sirv public"
+    "start": "sirv public",
+    "deploy": "aws s3 sync ./public s3://codeforces.guru"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",

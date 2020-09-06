@@ -6,7 +6,7 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY ./data ./data
+# COPY ./data ./data
 
 COPY ./src ./src
 
