@@ -75,6 +75,11 @@ function addUserRatings (handle, status, data) {
 
         store.users.set(handle, user)
 
+        if (store.contest.id === null && handle === 'tourist' && user.ratings.data.length) {
+            const n = user.ratings.data.length
+            selectContest(user.ratings.data[n - 1].contestId)
+        }
+
         return store
 
     })

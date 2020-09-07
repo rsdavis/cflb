@@ -3,6 +3,7 @@
 import { writable } from 'svelte/store'
 import axios from 'axios'
 import debounce from 'underscore/modules/debounce.js'
+import userStore from './store.js'
 
 const initStore = {
     topRequestPromise: null,
@@ -18,6 +19,12 @@ function initialRequest () {
     update(store => {
 
         store.topRequestPromise = axios.get(process.env.API_URL + '/api/top')
+        store.topRequestPromise.then(res => {
+            const item = res.data.find(d => d.handle === 'tourist')
+            if (item) {
+                userStore.toggleUser(item.handle, item)
+            }
+        })
         return store
 
     })

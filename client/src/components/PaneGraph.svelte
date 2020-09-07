@@ -53,7 +53,6 @@
     }
 
     function onFocus(_) {
-        console.log(_)
         closest = _
     }
 
