@@ -3,7 +3,9 @@ import * as d3 from 'd3'
 
 class Graph {
 
-    constructor (elementId, onSelectContest) {
+    constructor (elementId, onSelectContest, onFocus) {
+
+        this.onFocus = onFocus
 
         this.svg = d3.select('#' + elementId)
         this.onSelectContest = onSelectContest
@@ -75,10 +77,13 @@ class Graph {
             const cx = this.xt(this.closest.t)
             const cy = this.yt(this.closest.newRating)
             this.focus.attr('cx', cx).attr('cy', cy).attr('opacity', 1)
+            this.onFocus(cx, cy)
         }
         else {
             this.focus.attr('opacity', 0)
         }
+
+        this.onFocus(this.closest)
 
     }
 

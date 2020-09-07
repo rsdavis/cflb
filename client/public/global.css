@@ -61,3 +61,11 @@ img {
 .spin {
     animation: spin 1.5s linear infinite;
 }
+
+.ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: calc(100%);
+	display: block;
+}
